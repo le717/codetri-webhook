@@ -1,0 +1,13 @@
+version: '3.6'
+
+services:
+  codetri-webhook:
+    image: codetri-webhook:latest
+    restart: unless-stopped
+    volumes:
+      - /usr/bim/codetri-webhook:/app
+    ports:
+      - 127.0.0.1:5002:5000
+    entrypoint:
+      - sh
+      - ./run-app.sh
