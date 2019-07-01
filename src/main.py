@@ -32,8 +32,8 @@ def create_app():
 
     # All access to undefined routes are bad requests
     @app.errorhandler(404)
-    def not_found_handler(e):
-        abort(400)
+    def not_found_handler(e) -> tuple:
+        return ("", 400)
 
     return app
 
