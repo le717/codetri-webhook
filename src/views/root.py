@@ -25,6 +25,7 @@ def main() -> str:
         hook_config["service"]
     )(**hook_config)
     service.headers = dict(request.headers)
+    print(service.headers)
 
     # Remove the request URL scheme and the trailing slash, if needed,
     # and add it to the service headers
