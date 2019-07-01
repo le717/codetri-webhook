@@ -5,7 +5,7 @@ Do not directly use this as a service!
 
 from dataclasses import dataclass, field
 from subprocess import run
-from typing import List, Dict
+from typing import Any, List, Dict
 
 
 @dataclass
@@ -19,6 +19,7 @@ class Base:
     before_pull: list
     after_pull: list
     headers: Dict[str, str] = field(default_factory=dict)
+    body: Dict[str, Any] = field(default_factory=dict)
 
     @staticmethod
     def _rewrite_header_key(key: str) -> str:
@@ -42,9 +43,7 @@ class Base:
 
     def is_authorized(self, secret_key: str) -> bool:
         is_expected_url = self.confirm_url(self.headers["Request-Url"])
-        is_expected_secret = self.confirm_secret(
-            self.headers[self._rewrite_header_key(secret_key)]
-        )
+        is_expected_secret = self.confirm_secret(secret_key))
         return is_expected_url and is_expected_secret
 
     @staticmethod

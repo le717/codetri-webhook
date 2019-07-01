@@ -25,11 +25,14 @@ def main() -> str:
         hook_config["service"]
     )(**hook_config)
     service.headers = dict(request.headers)
+    service.body = dict(hook_request)
     print(service.headers)
+    print(service.body)
 
     # Remove the request URL scheme and the trailing slash, if needed,
     # and add it to the service headers
-    # TOD What about subdomains, e.g., `api.example.com`?
+    # TODO What about subdomains, e.g., `api.example.com`?
+    # TODO Is this logic even correct???
     url = request.url_root.replace(f"{request.scheme}://", "")
     if url.endswith("/"):
         url = url.rstrip("/")

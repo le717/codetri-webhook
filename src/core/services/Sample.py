@@ -8,7 +8,8 @@ from src.core.services.base import Base
 class Sample(Base):
     def main(self) -> bool:
         # Check if this is an authorized request
-        if not self.is_authorized("SAMPLE_TOKEN"):
+        secret_key = self.headers[self._rewrite_header_key(secret_key)]
+        if not self.is_authorized(secret_key):
             return False
 
         # Run any required commands before we `git pull`

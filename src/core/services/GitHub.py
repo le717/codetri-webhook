@@ -8,7 +8,10 @@ from src.core.services.base import Base
 class GitHub(Base):
     def main(self) -> bool:
         # Check if this is an authorized request
-        if not self.is_authorized("SAMPLE_TOKEN"):
+        # TODO Implement validation instead
+        # https://developer.github.com/webhooks/securing/#validating-payloads-from-github
+        secret_key = self.body["config"]["secrets"]
+        if not self.is_authorized(secret_key):
             return False
 
         # Run any required commands before we `git pull`
@@ -19,9 +22,9 @@ class GitHub(Base):
 
         # Get a full path to the destination before pulling our code
         dest_dir = abspath(expanduser(self.destination))
-        git_result = self.run_git_clone(dest_dir)
-        if not git_result:
-            return False
+#        git_result = self.run_git_clone(dest_dir)
+#        if not git_result:
+#            return False
 
         # Run any required commands after the `git pull`
         if self.after_pull:
