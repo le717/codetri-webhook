@@ -13,7 +13,7 @@ logger = logging.getLogger("codetri-webhook")
 
 @dataclass
 class GitHub(Base):
-    def set_body(self, data):.
+    def set_body(self, data):
         self.body = data
 
     def is_authorized(self) -> bool:
