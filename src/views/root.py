@@ -28,7 +28,7 @@ def main() -> str:
 
     print(request.data)
     print("\n\n\n")
-    print(dumps(request.get_json()).encode("utf-8"))
+    print(dumps(request.get_json(), separators=(',', ':')).encode("utf-8"))
     service.body = request.data
 #    service.body = request.get_json()
 
