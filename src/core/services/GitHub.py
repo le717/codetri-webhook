@@ -26,7 +26,7 @@ class GitHub(Base):
 #        digest = hashlib.sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
 #        signature = f"sha1={digest}"
         logger.info("Expected signature")
-        expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][4:]
+        expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
         logger.info(expected)
         logger.info("Created signature")
         logger.info(signature)
