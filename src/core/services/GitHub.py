@@ -16,19 +16,14 @@ class GitHub(Base):
     def is_authorized(self) -> bool:
         # Make sure this request came from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
-        logger.info("Is from GitHub?")
-        logger.info(str(is_github))
 
-        logger.info(self.expected_secret)
-        logger.info(dumps(self.body))
-        logger.info(type(dumps(self.body)))
-
-        digest = sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
-#        signature = f"sha1={digest}"
-#        logger.info(signature)
+        digest = sha1(f"{self.expected_secret.encode('utf-8')}{dumps(self.body).encode('utf-8')}").hexdigest()
+        signature = f"sha1={digest}"
         logger.info("Expected signature")
         logger.info(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
-#        logger.info("Created signature")
+        logger.info("Created signature")
+        logger.info(signature)
+
 #        logger.info(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
         return signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]
 
