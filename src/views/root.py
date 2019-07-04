@@ -29,17 +29,11 @@ def main() -> str:
     print(service.headers)
     print(service.body)
 
-    # Remove the request URL scheme and the trailing slash, if needed,
-    # and add it to the service headers
-    # TODO What about subdomains, e.g., `api.example.com`?
-    # TODO Is this logic even correct???
-    url = request.url_root.replace(f"{request.scheme}://", "")
-    if url.endswith("/"):
-        url = url.rstrip("/")
-    service.headers["Request-Url"] = url
-
-    # Kick off the service process
-    success = service.main()
+    # Kick off the service process if authorized
+    if service.is_authorized():
+        success = service.main()
+    else:
+        success = False
 
     # Respond with the proper response code
     code = 200 if success else 400

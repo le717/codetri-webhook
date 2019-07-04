@@ -6,12 +6,12 @@ from src.core.services.base import Base
 
 @dataclass
 class Sample(Base):
-    def main(self) -> bool:
-        # Check if this is an authorized request
-        secret_key = self.headers[self._rewrite_header_key(secret_key)]
-        if not self.is_authorized(secret_key):
-            return False
+    def is_authorized(self) -> bool:
+        """Check if this is an authorized request."""
+        secret_key = self.headers[self._rewrite_header_key("SAMPLE_TOKEN")]
+        return self.confirm_secret(secret_key)
 
+    def main(self) -> bool:
         # Run any required commands before we `git pull`
         if self.before_pull:
             before_result = self.run_commands(self.before_pull)

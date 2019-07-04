@@ -6,6 +6,9 @@ from src.core.services.base import Base
 
 @dataclass
 class GitHub(Base):
+    def is_authorized(self) -> bool:
+        return False
+
     def main(self) -> bool:
         # Check if this is an authorized request
         # TODO Implement validation instead

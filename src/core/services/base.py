@@ -13,7 +13,6 @@ class Base:
     name: str
     service: str
     expected_secret: str
-    expected_url: str
     branch: str
     destination: str
     before_pull: list
@@ -30,21 +29,18 @@ class Base:
             key = key.title()
         return key
 
-    def main(self) -> bool:
-        raise NotImplementedError(
-            "This method must be implemented by the child class!"
-    )
-
-    def confirm_url(self, given: str) -> bool:
-        return given == self.expected_url
-
     def confirm_secret(self, given: str) -> bool:
         return given == self.expected_secret
 
-    def is_authorized(self, secret_key: str) -> bool:
-        is_expected_url = self.confirm_url(self.headers["Request-Url"])
-        is_expected_secret = self.confirm_secret(secret_key))
-        return is_expected_url and is_expected_secret
+    def is_authorized(self) -> bool:
+        raise NotImplementedError(
+            "is_authorized() must be implemented by the child class!"
+        )
+
+    def main(self) -> bool:
+        raise NotImplementedError(
+            "main() must be implemented by the child class!"
+        )
 
     @staticmethod
     def run_commands(commands: list) -> bool:
@@ -55,7 +51,7 @@ class Base:
                 break
         return success
 
-    def run_git_clone(self, dest_dir) -> bool:
+    def run_git_clone(self, dest_dir: str) -> bool:
         return run(
             ["git", "-C", dest_dir, "pull", "origin", self.branch]
         ).returncode == 0

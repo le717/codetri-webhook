@@ -2,7 +2,8 @@
   "name": "sample",
   "service": "Sample",
   "expected_secret": "717171717",
-  "expected_url": "127.0.0.1:5000",
+  "branch": "",
+  "destination": "",
   "before_pull": [["python", "-m", "this"]],
   "after_pull": [
       ["python",
