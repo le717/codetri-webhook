@@ -11,9 +11,9 @@ class GitHub(Base):
     def is_authorized(self) -> bool:
         digest = sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
         signature = f"sha1={digest}"
-        sys.stdout.write(signature)
-        sys.stdout.write(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
-        sys.stdout.write(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
+        print(signature)
+        print(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
+        print(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
         return signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]
 
     def main(self) -> bool:
