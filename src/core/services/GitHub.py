@@ -16,23 +16,19 @@ class GitHub(Base):
     def is_authorized(self) -> bool:
         # Make sure this request came from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
+        print(self.body.url)
 
-        secret = self.expected_secret.encode("utf-8")
-        signature = hmac.new(secret, msg=self.body, digestmod=hashlib.sha1).hexdigest()
-
-        logger.info("Expected signature")
+        # Calculate the payload signature to ensure it's correct
+        # https://developer.github.com/webhooks/securing/
         expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
-        logger.info(expected)
-        logger.info("Created signature")
-        logger.info(signature)
-        logger.info(hmac.compare_digest(signature, expected))
+        signature = hmac.new(
+            self.expected_secret.encode("utf-8"),
+            msg=self.body,
+        digestmod=hashlib.sha1).hexdigest()
 
-        return hmac.compare_digest(signature, expected)
+        return is_github and hmac.compare_digest(signature, expected)
 
     def main(self) -> bool:
-        # https://developer.github.com/webhooks/securing/#validating-payloads-from-github
-#        secret_key = self.body["config"]["secrets"]
-
         # Run any required commands before we `git pull`
         if self.before_pull:
             before_result = self.run_commands(self.before_pull)
