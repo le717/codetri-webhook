@@ -1,9 +1,14 @@
 from dataclasses import dataclass
 from hashlib import sha1
+import logging
 from json import dumps
 from os.path import abspath, expanduser
 import sys
+
 from src.core.services.base import Base
+
+
+logger = logging.getLogger("codetri-webhook")
 
 
 @dataclass
@@ -11,18 +16,14 @@ class GitHub(Base):
     def is_authorized(self) -> bool:
         digest = sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
         signature = f"sha1={digest}"
-        print(signature)
-        print(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
-        print(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
+        logger.info(signature)
+        logger.info(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
+        logger.info(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
         return signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]
 
     def main(self) -> bool:
-        # Check if this is an authorized request
-        # TODO Implement validation instead
         # https://developer.github.com/webhooks/securing/#validating-payloads-from-github
 #        secret_key = self.body["config"]["secrets"]
-#        if not self.is_authorized(secret_key):
-#            return False
 
         # Run any required commands before we `git pull`
         if self.before_pull:
