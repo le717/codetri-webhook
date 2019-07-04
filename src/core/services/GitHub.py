@@ -14,12 +14,10 @@ logger = logging.getLogger("codetri-webhook")
 @dataclass
 class GitHub(Base):
     def is_authorized(self) -> bool:
-        # Make sure this request came from GitHub
+        # Make sure this user-agent is from from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
-#        logger.info(self.body)
+        logger.info(self.body["zen"])
 
-#        print(type(self.body))
-#        print(type(dumps(self.body).encode("utf-8")))
         # Calculate the payload signature to ensure it's correct
         # https://developer.github.com/webhooks/securing/
         expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
@@ -28,9 +26,6 @@ class GitHub(Base):
             self.expected_secret.encode("utf-8"),
             msg=msg,
         digestmod=hashlib.sha1).hexdigest()
-
-        logger.info(expected)
-        logger.info(signature)
         return is_github and hmac.compare_digest(signature, expected)
 
     def main(self) -> bool:
