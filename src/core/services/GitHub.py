@@ -13,6 +13,9 @@ logger = logging.getLogger("codetri-webhook")
 
 @dataclass
 class GitHub(Base):
+    def set_body(self, data):
+        self.body = data
+
     def is_authorized(self) -> bool:
         # Make sure this request came from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
