@@ -18,7 +18,6 @@ class GitHub(Base):
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
         # Make sure we have the signature
-#        expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
         expected = self.headers.get("X-Hub-Signature")
         if not expected:
             return False
@@ -27,7 +26,7 @@ class GitHub(Base):
         # https://developer.github.com/webhooks/securing/
         msg = dumps(self.body, separators=(',', ':')).encode("utf-8")
         signature = hmac.new(
-            self.expected_secret.encode("utf-8"),
+            self.secret.encode("utf-8"),
             msg=msg,
         digestmod=hashlib.sha1).hexdigest()
         return is_github and hmac.compare_digest(signature, expected[5:])

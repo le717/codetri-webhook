@@ -1,7 +1,7 @@
 {
   "name": "sample",
   "service": "Sample",
-  "expected_secret": "717171717",
+  "secret": "717171717",
   "branch": "",
   "destination": "",
   "before_pull": [["python", "-m", "this"]],

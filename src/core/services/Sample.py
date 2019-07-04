@@ -9,7 +9,7 @@ class Sample(Base):
     def is_authorized(self) -> bool:
         """Check if this is an authorized request."""
         secret_key = self.headers[self._rewrite_header_key("SAMPLE_TOKEN")]
-        return self.confirm_secret(secret_key)
+        return secret_key == self.secret
 
     def main(self) -> bool:
         # Run any required commands before we `git pull`

@@ -12,7 +12,7 @@ from typing import Any, List, Dict
 class Base:
     name: str
     service: str
-    expected_secret: str
+    secret: str
     branch: str
     destination: str
     before_pull: list
@@ -28,9 +28,6 @@ class Base:
         if not key.istitle():
             key = key.title()
         return key
-
-    def confirm_secret(self, given: str) -> bool:
-        return given == self.expected_secret
 
     def is_authorized(self) -> bool:
         raise NotImplementedError(

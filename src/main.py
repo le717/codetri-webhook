@@ -19,7 +19,7 @@ def create_app():
     handler.setFormatter(LOG_MSG_FORMAT)
     logger.addHandler(handler)
 
-
+    # Create the app
     app = Flask(__name__)
     # https://stackoverflow.com/a/45333882
     app.wsgi_app = ProxyFix(app.wsgi_app)
