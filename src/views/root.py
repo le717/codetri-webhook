@@ -1,4 +1,5 @@
 from importlib import import_module
+from json import dumps
 
 from flask import current_app, Blueprint, request, Response
 
@@ -24,8 +25,12 @@ def main() -> str:
         hook_config["service"]
     )(**hook_config)
     service.headers = dict(request.headers)
-#    service.body = request.data
-    service.body = request.get_json()
+
+    print(type(request.data))
+    print(type(request.get_json()))
+    print(type(dumps(request.get_json()).encode("utf-8")))
+    service.body = request.data
+#    service.body = request.get_json()
 
     # Kick off the service process if authorized
     if service.is_authorized():
