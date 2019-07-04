@@ -17,7 +17,7 @@ class GitHub(Base):
         # Make sure this request came from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
-        digest = sha1(f"{self.expected_secret.encode('utf-8')}{dumps(self.body).encode('utf-8')}").hexdigest()
+        digest = sha1(f"{self.expected_secret.encode('utf-8')}{dumps(self.body).encode('utf-8')}".encode('utf-8')).hexdigest()
         signature = f"sha1={digest}"
         logger.info("Expected signature")
         logger.info(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
