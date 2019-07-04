@@ -26,11 +26,11 @@ def main() -> str:
     )(**hook_config)
     service.headers = dict(request.headers)
 
-    print(request.data)
-    print("\n\n\n")
-    print(dumps(request.get_json(), separators=(',', ':')).encode("utf-8"))
-    service.body = request.data
-#    service.body = request.get_json()
+#    print(request.data)
+#    print("\n\n\n")
+#    print(dumps(request.get_json(), separators=(',', ':')).encode("utf-8"))
+#    service.body = request.data
+    service.body = request.get_json()
 
     # Kick off the service process if authorized
     if service.is_authorized():
