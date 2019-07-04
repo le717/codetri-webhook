@@ -13,7 +13,7 @@ logger = logging.getLogger("codetri-webhook")
 
 @dataclass
 class GitHub(Base):
-    def set_body(self, data):
+    def set_body(self, data):.
         self.body = data
 
     def is_authorized(self) -> bool:
@@ -21,14 +21,16 @@ class GitHub(Base):
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
         secret = self.expected_secret.encode("utf-8")
-        signature = hmac.new(secret, msg=self.body, digestmod=hashlib.sha1)
+        signature = hmac.new(secret, msg=self.body, digestmod=hashlib.sha1).hexdigest()
 
 #        digest = hashlib.sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
 #        signature = f"sha1={digest}"
         logger.info("Expected signature")
-        logger.info(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
+        expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][4:]
+        logger.info(expected)
         logger.info("Created signature")
-        logger.info(signature.hexdigest())
+        logger.info(signature)
+        logger.info(hmac.compare_digest(signature, expected))
 
 #        logger.info(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
         return signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]
