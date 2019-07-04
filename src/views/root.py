@@ -7,7 +7,6 @@ bp = Blueprint("root", __name__, url_prefix="")
 
 def main() -> str:
     # Get the current endpoint and request data
-    hook_request = request.get_json()
     this_endpoint = request.path.lstrip("/")
 
     # Get the config for this webhook
@@ -25,7 +24,7 @@ def main() -> str:
         hook_config["service"]
     )(**hook_config)
     service.headers = dict(request.headers)
-    service.body = dict(hook_request)
+    service.body = dict(request.data)
 
     # Kick off the service process if authorized
     if service.is_authorized():
