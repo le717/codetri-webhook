@@ -25,7 +25,8 @@ def main() -> str:
     )(**hook_config)
     service.headers = dict(request.headers)
 #    service.body = dict(request.data)
-    service.body = request.data
+    service.set_body(request.data)
+#    service.body = request.data
 
     # Kick off the service process if authorized
     if service.is_authorized():
