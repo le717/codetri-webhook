@@ -26,7 +26,7 @@ def main() -> str:
     service.headers = dict(request.headers)
 #    service.set_body(request.data)
 #    service.body = request.data
-    service.body = dict(request.get_json())
+    service.body = request.get_json()
 
     # Kick off the service process if authorized
     if service.is_authorized():
