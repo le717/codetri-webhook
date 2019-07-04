@@ -11,8 +11,8 @@ def main() -> str:
     this_endpoint = request.path.lstrip("/")
 
     # Get the config for this webhook
-    # We don't have to check if this exists because we can only
-    # acccess this endpoint because it's been defined
+    # We don't have to check if this exists since
+    # we are only here because it's been defined
     hook_config = [
         hook
         for hook in current_app.config["SUPPORTED_HOOKS"]
@@ -25,14 +25,9 @@ def main() -> str:
         hook_config["service"]
     )(**hook_config)
     service.headers = dict(request.headers)
-
-#    print(request.data)
-#    print("\n\n\n")
-#    print(dumps(request.get_json(), separators=(',', ':')).encode("utf-8"))
-#    service.body = request.data
     service.body = request.get_json()
 
-    # Kick off the service process if authorized
+    # Kick off the service if authorized
     if service.is_authorized():
         success = service.main()
     else:
