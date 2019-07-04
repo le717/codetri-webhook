@@ -18,7 +18,7 @@ class GitHub(Base):
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
         key = self.expected_secret.encode("utf-8")
-        signature = hmac.new(key, self.body, hashlib.sha1)
+        signature = hmac.new(key, dumps(self.body), hashlib.sha1)
 
 #        digest = hashlib.sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
 #        signature = f"sha1={digest}"
