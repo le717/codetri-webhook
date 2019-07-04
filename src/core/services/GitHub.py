@@ -16,7 +16,7 @@ class GitHub(Base):
     def is_authorized(self) -> bool:
         # Make sure this request came from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
-        print(self.body.url)
+        logging.info(self.body)
 
         # Calculate the payload signature to ensure it's correct
         # https://developer.github.com/webhooks/securing/
