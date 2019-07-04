@@ -24,9 +24,7 @@ def main() -> str:
         hook_config["service"]
     )(**hook_config)
     service.headers = dict(request.headers)
-#    service.set_body(request.data)
-#    service.body = request.data
-    service.body = request.get_json()
+    service.body = request.data
 
     # Kick off the service process if authorized
     if service.is_authorized():
