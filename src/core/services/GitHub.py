@@ -9,7 +9,7 @@ from src.core.services.base import Base
 @dataclass
 class GitHub(Base):
     def is_authorized(self) -> bool:
-        digest = sha1(f"{self.expected_secret}{dumps(self.body)}").hexdigest()
+        digest = sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
         signature = f"sha1={digest}"
         sys.stdout.write(signature)
         sys.stdout.write(self.headers[self._rewrite_header_key("HTTP_X_HUB_SIGNATURE")])
