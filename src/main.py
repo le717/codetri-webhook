@@ -1,4 +1,5 @@
 from importlib import import_module
+import logging
 
 from flask import Flask
 from flask import abort
@@ -9,6 +10,15 @@ from src.views import root
 
 
 def create_app():
+    # Create a logger
+    logger = logging.getLogger("codetri-webhook")
+    logger.setLevel(logging.INFO)
+    LOG_MSG_FORMAT = logging.Formatter("[%(asctime)s - %(levelname)s]: %(message)s")
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(LOG_MSG_FORMAT)
+    logger.addHandler(handler)
+
+
     app = Flask(__name__)
     # https://stackoverflow.com/a/45333882
     app.wsgi_app = ProxyFix(app.wsgi_app)
