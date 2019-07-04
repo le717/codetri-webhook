@@ -12,9 +12,9 @@ class GitHub(Base):
         digest = sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
         signature = f"sha1={digest}"
         sys.stdout.write(signature)
-        sys.stdout.write(self.headers[self._rewrite_header_key("HTTP_X_HUB_SIGNATURE")])
-        sys.stdout.write(str(signature == self.headers[self._rewrite_header_key("HTTP_X_HUB_SIGNATURE")]))
-        return signature == self.headers[self._rewrite_header_key("HTTP_X_HUB_SIGNATURE")]
+        sys.stdout.write(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
+        sys.stdout.write(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
+        return signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]
 
     def main(self) -> bool:
         # Check if this is an authorized request
