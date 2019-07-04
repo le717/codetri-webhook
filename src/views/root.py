@@ -26,9 +26,9 @@ def main() -> str:
     )(**hook_config)
     service.headers = dict(request.headers)
 
-    print(type(request.data))
-    print(type(request.get_json()))
-    print(type(dumps(request.get_json()).encode("utf-8")))
+    print(request.data)
+    print("\n\n\n")
+    print(dumps(request.get_json()).encode("utf-8"))
     service.body = request.data
 #    service.body = request.get_json()
 
