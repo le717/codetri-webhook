@@ -18,12 +18,14 @@ class GitHub(Base):
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 #        logger.info(self.body)
 
+#        print(type(self.body))
+#        print(type(dumps(self.body).encode("utf-8")))
         # Calculate the payload signature to ensure it's correct
         # https://developer.github.com/webhooks/securing/
         expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
         signature = hmac.new(
             self.expected_secret.encode("utf-8"),
-            msg=dumps(self.body).encode("utf-8"),
+            msg=self.body,
         digestmod=hashlib.sha1).hexdigest()
 
         logger.info(expected)
