@@ -23,7 +23,7 @@ class GitHub(Base):
         expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
         signature = hmac.new(
             self.expected_secret.encode("utf-8"),
-            msg=self.body,
+            msg=str(self.body).encode("utf-8"),
         digestmod=hashlib.sha1).hexdigest()
 
         return is_github and hmac.compare_digest(signature, expected)
