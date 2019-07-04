@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from hashlib import sha1
+import hashlib
+import hmac
 import logging
 from json import dumps
 from os.path import abspath, expanduser
-import sys
 
 from src.core.services.base import Base
 
@@ -17,12 +17,15 @@ class GitHub(Base):
         # Make sure this request came from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
-        digest = sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
-        signature = f"sha1={digest}"
+        key = self.expected_secret.encode("utf-8")
+        signature = hmac.new(key, self.body, hashlib.sha1)
+
+#        digest = hashlib.sha1(f"{self.expected_secret}{dumps(self.body)}".encode("utf-8")).hexdigest()
+#        signature = f"sha1={digest}"
         logger.info("Expected signature")
         logger.info(self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")])
         logger.info("Created signature")
-        logger.info(signature)
+        logger.info(signature.hexdigest())
 
 #        logger.info(str(signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]))
         return signature == self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")]
