@@ -23,9 +23,10 @@ class GitHub(Base):
         # Calculate the payload signature to ensure it's correct
         # https://developer.github.com/webhooks/securing/
         expected = self.headers[self._rewrite_header_key("X_HUB_SIGNATURE")][5:]
+        msg = dumps(self.body, separators=(',', ':')).encode("utf-8")
         signature = hmac.new(
             self.expected_secret.encode("utf-8"),
-            msg=self.body,
+            msg=msg,
         digestmod=hashlib.sha1).hexdigest()
 
         logger.info(expected)
