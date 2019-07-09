@@ -3,7 +3,7 @@ import hashlib
 import hmac
 import logging
 from json import dumps
-from os.path import abspath, expanduser
+from os.path import abspath, cwd, expanduser
 
 from src.core.services.base import Base
 
@@ -32,14 +32,17 @@ class GitHub(Base):
         return is_github and hmac.compare_digest(signature, expected[5:])
 
     def main(self) -> bool:
+        # Get a full path to the destination and go to it
+        dest_dir = abspath(expanduser(self.destination))
+        cwd(dest_dir)
+
         # Run any required commands before we `git pull`
         if self.before_pull:
             before_result = self.run_commands(self.before_pull)
         if not before_result:
             return False
 
-        # Get a full path to the destination before pulling our code
-        dest_dir = abspath(expanduser(self.destination))
+        # Pull the latest code
         git_result = self.run_git_clone(dest_dir)
         if not git_result:
             return False
