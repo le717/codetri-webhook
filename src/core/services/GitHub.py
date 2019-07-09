@@ -40,11 +40,11 @@ class GitHub(Base):
 
         # Get a full path to the destination before pulling our code
         dest_dir = abspath(expanduser(self.destination))
-#        git_result = self.run_git_clone(dest_dir)
-#        if not git_result:
-#            return False
+        git_result = self.run_git_clone(dest_dir)
+        if not git_result:
+            return False
 
-        # Run any required commands after the `git pull`
+        # Run any required commands after pulling
         if self.after_pull:
             after_result = self.run_commands(self.after_pull)
         if not after_result:
