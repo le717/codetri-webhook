@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-gunicorn --bind 0.0.0.0:5000 --workers 2 wsgi:app
+gunicorn --bind 127.0.0.1:5006 --workers 2 wsgi:app
