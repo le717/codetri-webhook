@@ -2,14 +2,15 @@
 name = "codetri-webhook"
 version = "0.1.0"
 description = ""
-authors = ["Caleb Ely <you@example.com>"]
+authors = ["Caleb Ely <le717@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-flask = "^1.0"
+python = "^3.6"
+flask = "^1.1"
 python-dotenv = "^0.10.3"
-gunicorn = "^19.9"
+gunicorn = "^20.0"
 supervisor = "^4.1.0"
+dataclasses = { version = "^0.7", python = "~3.6" }
 
 [tool.poetry.dev-dependencies]
 
