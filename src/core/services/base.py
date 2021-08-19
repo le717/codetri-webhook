@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from os import fspath
 from pathlib import Path
 from subprocess import run
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 
 
 @dataclass
@@ -32,7 +32,7 @@ class Base:
     before_pull: List[str]
     after_pull: List[str]
     headers: Dict[str, str]
-    body: Dict[str, Any]
+    body: Union[Dict[str, Any], None]
 
     def is_authorized(self) -> bool:
         raise NotImplementedError(
