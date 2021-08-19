@@ -10,6 +10,16 @@ from typing import Any, Dict, List
 
 @dataclass
 class Base:
+    __slots__ = [
+        "name",
+        "service",
+        "secret",
+        "branch",
+        "destination",
+        "before_pull",
+        "after_pull",
+    ]
+
     name: str
     service: str
     secret: str
