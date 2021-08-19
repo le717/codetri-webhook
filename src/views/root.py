@@ -12,11 +12,7 @@ def main() -> str:
     # Get the config for this webhook
     # We don't have to check if this exists since
     # we are only here because it's been defined
-    hook_config = [
-        hook
-        for hook in current_app.config["SUPPORTED_HOOKS"]
-        if hook["name"] == this_endpoint
-    ][0]
+    hook_config = current_app.config["SUPPORTED_HOOKS"][this_endpoint]
 
     # Next, we import the defined service and give it the info it needs
     service = getattr(

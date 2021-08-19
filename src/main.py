@@ -26,9 +26,9 @@ def create_app():
     app.config.update(load_app_config())
 
     # Load the supported hooks
-    app.config["SUPPORTED_HOOKS"] = []
+    app.config["SUPPORTED_HOOKS"] = {}
     for hook in load_hook_configs():
-        app.config["SUPPORTED_HOOKS"].append(hook)
+        app.config["SUPPORTED_HOOKS"].update({hook["name"]: hook})
 
         # Create an endpoint for each hook
         root.bp.add_url_rule(

@@ -5,7 +5,7 @@ Do not directly use this as a service!
 
 from dataclasses import dataclass, field
 from subprocess import run
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 
 @dataclass
@@ -15,8 +15,8 @@ class Base:
     secret: str
     branch: str
     destination: str
-    before_pull: list
-    after_pull: list
+    before_pull: List[str]
+    after_pull: List[str]
     headers: Dict[str, str] = field(default_factory=dict)
     body: Dict[str, Any] = field(default_factory=dict)
 
@@ -29,7 +29,7 @@ class Base:
         raise NotImplementedError("main() must be implemented by the child class!")
 
     @staticmethod
-    def run_commands(commands: list) -> bool:
+    def run_commands(commands: List[str]) -> bool:
         success = True
         for command in commands:
             if run(command).returncode != 0:
