@@ -2,7 +2,7 @@
 name = "codetri-webhook"
 version = "0.1.0"
 description = ""
-authors = ["Caleb Ely <le717@users.noreply.github.com>"]
+authors = ["Caleb <le717@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"

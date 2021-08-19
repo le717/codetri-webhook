@@ -4,7 +4,7 @@ import sys
 
 from flask import Flask
 from flask import abort
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from src.core.app_config import load_app_config, load_hook_configs
 from src.views import root
