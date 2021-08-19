@@ -37,7 +37,7 @@ class Base:
                 break
         return success
 
-    def run_git_clone(self, dest_dir: str) -> bool:
+    def pull_from_git(self, dest_dir: str) -> bool:
         return (
             run(["git", "-C", dest_dir, "pull", "origin", self.branch]).returncode == 0
         )

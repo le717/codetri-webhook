@@ -40,7 +40,7 @@ class GitHub(Base):
             return False
 
         # Pull the latest code
-        if not self.run_git_clone(dest_dir):
+        if not self.pull_from_git(dest_dir):
             return False
 
         # Run any required commands after pulling
