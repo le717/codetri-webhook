@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from flask import Flask
+from flask import Flask, Response
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from src.core import config
@@ -21,7 +21,7 @@ def create_app():
     app = Flask(__name__)
     # https://stackoverflow.com/a/45333882
     app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.config.update(config.load_app())
+    app.config.update(config.app())
 
     # Load the supported hooks
     app.config["SUPPORTED_HOOKS"] = {}
@@ -38,7 +38,7 @@ def create_app():
 
     # All access to undefined routes are bad requests
     @app.errorhandler(404)
-    def not_found_handler(e) -> tuple:
-        return ("", 400)
+    def not_found_handler(e) -> Response:
+        return Response("", 400)
 
     return app
