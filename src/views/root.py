@@ -1,5 +1,4 @@
 from importlib import import_module
-from json import dumps
 
 from flask import current_app, Blueprint, request, Response
 

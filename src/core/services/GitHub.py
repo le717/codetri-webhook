@@ -38,20 +38,17 @@ class GitHub(Base):
 
         # Run any required commands before we `git pull`
         if self.before_pull:
-            before_result = self.run_commands(self.before_pull)
-        if not before_result:
-            return False
+            if not self.run_commands(self.before_pull):
+                return False
 
         # Pull the latest code
-        git_result = self.run_git_clone(dest_dir)
-        if not git_result:
+        if not self.run_git_clone(dest_dir):
             return False
 
         # Run any required commands after pulling
         if self.after_pull:
-            after_result = self.run_commands(self.after_pull)
-        if not after_result:
-            return False
+            if not self.run_commands(self.after_pull):
+                return False
 
         # Everything worked! Woo! :D
         return True

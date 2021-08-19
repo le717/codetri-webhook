@@ -5,7 +5,7 @@ Do not directly use this as a service!
 
 from dataclasses import dataclass, field
 from subprocess import run
-from typing import Any, List, Dict
+from typing import Any, Dict
 
 
 @dataclass
