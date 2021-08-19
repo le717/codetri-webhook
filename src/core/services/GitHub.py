@@ -1,15 +1,11 @@
 import hashlib
 import hmac
-import logging
 from dataclasses import dataclass
 from json import dumps
 from os import chdir
 from pathlib import Path
 
 from src.core.services.base import Base
-
-
-logger = logging.getLogger("codetri-webhook")
 
 
 @dataclass

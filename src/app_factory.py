@@ -4,29 +4,23 @@ import sys
 from flask import Flask, Response
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from src.core import config
+from src.core import config, logger
 from src.views import root
 
 
 def create_app():
-    # Create a logger
-    logger = logging.getLogger("codetri-webhook")
-    logger.setLevel(logging.INFO)
-    LOG_MSG_FORMAT = logging.Formatter("[%(asctime)s - %(levelname)s]: %(message)s")
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(LOG_MSG_FORMAT)
-    logger.addHandler(handler)
-
-    # Create the app
     app = Flask(__name__)
-    # https://stackoverflow.com/a/45333882
     app.wsgi_app = ProxyFix(app.wsgi_app)
     app.config.update(config.app())
+
+    # Create an app error log and general runtime logs
+    app.logger.addHandler(logger.file_handler("error.log"))
+    logger.LOG.addHandler(logger.file_handler("general.log"))
+    logger.LOG.addHandler(logger.stdout_hander())
 
     # Load the hooks
     app.config["SUPPORTED_HOOKS"] = {}
     for hook in config.hooks():
-
         # Don't load the Sample hook in production
         if app.config["ENV"] == "production" and hook["name"] == "sample":
             continue
