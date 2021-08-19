@@ -18,8 +18,7 @@ class GitHub(Base):
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
         # Make sure we have the signature
-        expected = self.headers.get("X-Hub-Signature")
-        if not expected:
+        if (expected := self.headers.get("X-Hub-Signature")) is None:
             return False
 
         # Calculate the payload signature to ensure it's correct
