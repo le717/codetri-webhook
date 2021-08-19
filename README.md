@@ -26,7 +26,7 @@ but with Hook having their own tasks. For more details and a working example, a 
 
 ## Install
 
-1. Install Python 3.7+ and [Poetry](https://poetry.eustace.io/)
+1. Install Python 3.8+ and [Poetry](https://poetry.eustace.io/)
 1. `$ mv oss.env .env && echo "<flask-secret-key>" >> .env`
 1. `poetry install`
 1. `poetry run flask run`
