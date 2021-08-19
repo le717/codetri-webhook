@@ -24,11 +24,10 @@ class GitHub(Base):
 
         # Calculate the payload signature to ensure it's correct
         # https://developer.github.com/webhooks/securing/
-        msg = dumps(self.body, separators=(',', ':')).encode("utf-8")
+        msg = dumps(self.body, separators=(",", ":")).encode("utf-8")
         signature = hmac.new(
-            self.secret.encode("utf-8"),
-            msg=msg,
-        digestmod=hashlib.sha1).hexdigest()
+            self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha1
+        ).hexdigest()
         return is_github and hmac.compare_digest(signature, expected[5:])
 
     def main(self) -> bool:

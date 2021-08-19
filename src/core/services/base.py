@@ -35,9 +35,7 @@ class Base:
         )
 
     def main(self) -> bool:
-        raise NotImplementedError(
-            "main() must be implemented by the child class!"
-        )
+        raise NotImplementedError("main() must be implemented by the child class!")
 
     @staticmethod
     def run_commands(commands: list) -> bool:
@@ -49,7 +47,6 @@ class Base:
         return success
 
     def run_git_clone(self, dest_dir: str) -> bool:
-        return run(
-            ["git", "-C", dest_dir, "pull", "origin", self.branch]
-        ).returncode == 0
-
+        return (
+            run(["git", "-C", dest_dir, "pull", "origin", self.branch]).returncode == 0
+        )

@@ -21,7 +21,7 @@ def main() -> str:
     # Next, we import the defined service and give it the info it needs
     service = getattr(
         import_module(f"src.core.services.{hook_config['service']}"),
-        hook_config["service"]
+        hook_config["service"],
     )(**hook_config)
     service.headers = dict(request.headers)
     service.body = request.get_json()

@@ -2,9 +2,7 @@ from typing import Union
 from re import match
 
 
-__all__ = [
-    "get_git_branch_or_tag"
-]
+__all__ = ["get_git_branch_or_tag"]
 
 
 def get_git_branch_or_tag(ref: str) -> Union[str, None]:

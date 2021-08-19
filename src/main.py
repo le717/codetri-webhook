@@ -32,10 +32,7 @@ def create_app():
 
         # Create an endpoint for each hook
         root.bp.add_url_rule(
-            f"/{hook['name']}".lower(),
-            hook["name"],
-            root.main,
-            methods=["POST"]
+            f"/{hook['name']}".lower(), hook["name"], root.main, methods=["POST"]
         )
 
     # Register the blueprint
@@ -47,6 +44,3 @@ def create_app():
         return ("", 400)
 
     return app
-
-
-

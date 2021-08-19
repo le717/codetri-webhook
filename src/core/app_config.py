@@ -5,10 +5,7 @@ from os.path import join
 from dotenv import dotenv_values, find_dotenv
 
 
-__all__ = [
-    "load_app_config",
-    "load_hook_configs"
-]
+__all__ = ["load_app_config", "load_hook_configs"]
 
 
 def load_app_config() -> dict:
@@ -16,7 +13,7 @@ def load_app_config() -> dict:
     vals = {}
     env_vals = dotenv_values(find_dotenv())
     for key, value in env_vals.items():
-        vals[key] = (value if value != "" else None)
+        vals[key] = value if value != "" else None
     return vals
 
 
