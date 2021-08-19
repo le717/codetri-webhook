@@ -4,6 +4,8 @@ Do not directly use this as a service!
 """
 
 from dataclasses import dataclass, field
+from os import fspath
+from pathlib import Path
 from subprocess import run
 from typing import Any, Dict, List
 
@@ -47,7 +49,6 @@ class Base:
                 break
         return success
 
-    def pull_from_git(self, dest_dir: str) -> bool:
-        return (
-            run(["git", "-C", dest_dir, "pull", "origin", self.branch]).returncode == 0
-        )
+    def pull_from_git(self, dest_dir: Path) -> bool:
+        pull_command = ["git", "-C", fspath(dest_dir), "pull", "origin", self.branch]
+        return run(pull_command).returncode == 0

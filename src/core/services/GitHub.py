@@ -1,9 +1,10 @@
-from dataclasses import dataclass
 import hashlib
 import hmac
 import logging
+from dataclasses import dataclass
 from json import dumps
-from os.path import abspath, cwd, expanduser
+from os import chdir
+from pathlib import Path
 
 from src.core.services.base import Base
 
@@ -31,8 +32,8 @@ class GitHub(Base):
 
     def main(self) -> bool:
         # Get a full path to the destination and go to it
-        dest_dir = abspath(expanduser(self.destination))
-        cwd(dest_dir)
+        dest_dir = Path(self.destination).expanduser().resolve()
+        chdir(dest_dir)
 
         # Run any required commands before we `git pull`
         if not self.run_commands(self.before_pull):
