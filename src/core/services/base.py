@@ -5,7 +5,7 @@ Do not directly use this as a service!
 
 from dataclasses import dataclass, field
 from subprocess import run
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Literal
 
 
 @dataclass
@@ -20,9 +20,23 @@ class Base:
     headers: Dict[str, str] = field(default_factory=dict)
     body: Dict[str, Any] = field(default_factory=dict)
 
+    def noop() -> Literal[True]:
+        """Noop function to be used as needed by child classes."""
+        return True
+
     def is_authorized(self) -> bool:
         raise NotImplementedError(
             "is_authorized() must be implemented by the child class!"
+        )
+
+    def run_before_pull(self) -> bool:
+        raise NotImplementedError(
+            "run_before_pull() must be implemented by the child class!"
+        )
+
+    def run_after_pull(self) -> bool:
+        raise NotImplementedError(
+            "run_after_pull() must be implemented by the child class!"
         )
 
     def main(self) -> bool:
