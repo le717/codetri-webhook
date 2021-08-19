@@ -18,9 +18,7 @@ def main() -> str:
     service = getattr(
         import_module(f"src.core.services.{hook_config['service']}"),
         hook_config["service"],
-    )(**hook_config)
-    service.headers = dict(request.headers)
-    service.body = request.get_json()
+    )(**hook_config, headers=dict(request.headers), body=request.get_json())
 
     # Kick off the service if authorized
     success = False
