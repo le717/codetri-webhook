@@ -1,0 +1,8 @@
+{
+  "secrets": [
+    "SECRET_KEY"
+  ],
+  "appConfig": {
+    "FLASK_APP": "wsgi.py"
+  }
+}

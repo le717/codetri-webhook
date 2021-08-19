@@ -1,0 +1,6 @@
+{
+  "secrets": [],
+  "appConfig": {
+    "FLASK_SKIP_DOTENV": 1
+  }
+}

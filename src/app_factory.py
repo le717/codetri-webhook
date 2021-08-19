@@ -1,4 +1,3 @@
-from dotenv import dotenv_values
 from flask import Flask, Response
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -9,7 +8,10 @@ from src.views import root
 def create_app():
     app = Flask(__name__)
     app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.config.update(dotenv_values(".env"))
+
+    # Load the app configuration
+    app.config.update(config.app("default"))
+    app.config.update(config.app(app.config["ENV"]))
 
     # Create an app error log and general runtime logs
     app.logger.addHandler(logger.file_handler("error.log"))
