@@ -1,12 +1,10 @@
-from importlib import import_module
 import logging
 import sys
 
 from flask import Flask
-from flask import abort
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from src.core.app_config import load_app_config, load_hook_configs
+from src.core import config
 from src.views import root
 
 
@@ -23,11 +21,11 @@ def create_app():
     app = Flask(__name__)
     # https://stackoverflow.com/a/45333882
     app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.config.update(load_app_config())
+    app.config.update(config.load_app())
 
     # Load the supported hooks
     app.config["SUPPORTED_HOOKS"] = {}
-    for hook in load_hook_configs():
+    for hook in config.hooks():
         app.config["SUPPORTED_HOOKS"].update({hook["name"]: hook})
 
         # Create an endpoint for each hook
