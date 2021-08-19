@@ -23,12 +23,16 @@ def create_app():
     app.wsgi_app = ProxyFix(app.wsgi_app)
     app.config.update(config.app())
 
-    # Load the supported hooks
+    # Load the hooks
     app.config["SUPPORTED_HOOKS"] = {}
     for hook in config.hooks():
-        app.config["SUPPORTED_HOOKS"].update({hook["name"]: hook})
+
+        # Don't load the Sample hook in production
+        if app.config["ENV"] == "production" and hook["name"] == "sample":
+            continue
 
         # Create an endpoint for each hook
+        app.config["SUPPORTED_HOOKS"].update({hook["name"]: hook})
         root.bp.add_url_rule(
             f"/{hook['name']}".lower(), hook["name"], root.main, methods=["POST"]
         )
