@@ -12,14 +12,12 @@ class Sample(Base):
 
     def main(self) -> bool:
         # Run any required commands before we `git pull`
-        if self.before_pull:
-            if not self.run_commands(self.before_pull):
-                return False
+        if not self.run_commands(self.before_pull):
+            return False
 
         # Run any required commands after the `git pull`
-        if self.after_pull:
-            if not self.run_commands(self.after_pull):
-                return False
+        if not self.run_commands(self.after_pull):
+            return False
 
         # Everything worked! Woo! :D
         return True

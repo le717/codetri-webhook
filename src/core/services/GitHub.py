@@ -36,18 +36,16 @@ class GitHub(Base):
         cwd(dest_dir)
 
         # Run any required commands before we `git pull`
-        if self.before_pull:
-            if not self.run_commands(self.before_pull):
-                return False
+        if not self.run_commands(self.before_pull):
+            return False
 
         # Pull the latest code
         if not self.run_git_clone(dest_dir):
             return False
 
         # Run any required commands after pulling
-        if self.after_pull:
-            if not self.run_commands(self.after_pull):
-                return False
+        if not self.run_commands(self.after_pull):
+            return False
 
         # Everything worked! Woo! :D
         return True

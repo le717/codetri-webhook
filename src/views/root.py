@@ -23,10 +23,9 @@ def main() -> str:
     service.body = request.get_json()
 
     # Kick off the service if authorized
+    success = False
     if service.is_authorized():
         success = service.main()
-    else:
-        success = False
 
     # Respond with the proper response code
     code = 200 if success else 400
