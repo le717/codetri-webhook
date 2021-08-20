@@ -2,6 +2,8 @@ from importlib import import_module
 
 from flask import current_app, Blueprint, request, Response
 
+from src.core import helpers
+
 bp = Blueprint("root", __name__, url_prefix="")
 
 
@@ -20,11 +22,16 @@ def main() -> str:
         hook_config["service"],
     )(**hook_config, headers=dict(request.headers), body=request.get_json())
 
-    # Kick off the service if authorized
-    success = False
-    if service.is_authorized():
-        success = service.main()
+    # The service didn't receive proper auth
+    if not service.is_authorized():
+        return Response(
+            helpers.make_error_response(403, "Incorrect authentication credentials.")
+        )
 
-    # Respond with the proper response code
-    code = 200 if success else 400
-    return Response("", code)
+    # Run the service's entrypoint and respond appropriately
+    if service.main():
+        return Response(helpers.make_response(200))
+    else:
+        return Response(
+            helpers.make_error_response(400, "Error running webhook service.")
+        )
