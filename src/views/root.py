@@ -25,13 +25,13 @@ def main() -> str:
     # The service didn't receive proper auth
     if not service.is_authorized():
         return Response(
-            helpers.make_error_response(403, "Incorrect authentication credentials.")
+            *helpers.make_error_response(403, "Incorrect authentication credentials.")
         )
 
     # Run the service's entrypoint and respond appropriately
     if service.main():
-        return Response(helpers.make_response(200))
+        return Response(*helpers.make_response(200))
     else:
         return Response(
-            helpers.make_error_response(400, "Error running webhook service.")
+            *helpers.make_error_response(400, "Error running webhook service.")
         )
