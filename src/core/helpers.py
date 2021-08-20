@@ -1,5 +1,5 @@
 from re import match
-from typing import Dict, Optional, Tuple, Union
+from typing import Optional, Tuple, Union
 
 
 __all__ = ["get_git_branch_or_tag", "make_response", "make_error_response"]
