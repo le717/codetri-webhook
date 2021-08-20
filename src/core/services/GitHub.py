@@ -6,6 +6,7 @@ from os import chdir
 from pathlib import Path
 
 from src.core.services.base import Base
+from src.core.logger import LOG
 
 
 @dataclass
@@ -13,9 +14,13 @@ class GitHub(Base):
     def is_authorized(self) -> bool:
         # Make sure this user-agent is from from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
+        if not is_github:
+            LOG.error("This request's User-Agent is not from github.com!")
+            LOG.info(f"User-Agent provided: {self.headers['User-Agent']}")
 
         # Make sure we have the signature
         if (expected := self.headers.get("X-Hub-Signature-256")) is None:
+            LOG.error("X-Hub-Signature-256 header was not provided!")
             return False
 
         # Calculate the payload signature to ensure it's correct
@@ -24,7 +29,11 @@ class GitHub(Base):
         signature = hmac.new(
             self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha256
         ).hexdigest()
-        return is_github and hmac.compare_digest(signature, expected[6:])
+        digests_are_equal = hmac.compare_digest(signature, expected[6:])
+
+        if not digests_are_equal:
+            LOG.error("Payload signatures do not match!")
+        return is_github and digests_are_equal
 
     def main(self) -> bool:
         # Get a full path to the destination and go to it
