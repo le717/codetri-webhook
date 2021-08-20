@@ -15,16 +15,16 @@ class GitHub(Base):
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
 
         # Make sure we have the signature
-        if (expected := self.headers.get("X-Hub-Signature")) is None:
+        if (expected := self.headers.get("X-Hub-Signature-256")) is None:
             return False
 
         # Calculate the payload signature to ensure it's correct
         # https://developer.github.com/webhooks/securing/
         msg = dumps(self.body, separators=(",", ":")).encode("utf-8")
         signature = hmac.new(
-            self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha1
+            self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha256
         ).hexdigest()
-        return is_github and hmac.compare_digest(signature, expected[5:])
+        return is_github and hmac.compare_digest(signature, expected[6:])
 
     def main(self) -> bool:
         # Get a full path to the destination and go to it
