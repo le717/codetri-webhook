@@ -8,7 +8,7 @@ __all__ = ["LOG", "file_handler", "stdout_hander"]
 
 
 LOG = logging.getLogger("codetri-webhook")
-LOG.setLevel(logging.DEBUG)
+LOG.setLevel(logging.ERROR)
 
 
 def file_handler(log_name: str) -> RotatingFileHandler:
