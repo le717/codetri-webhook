@@ -29,7 +29,7 @@ class GitHub(Base):
         signature = hmac.new(
             self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha256
         ).hexdigest()
-        digests_are_equal = hmac.compare_digest(signature, expected[6:])
+        digests_are_equal = hmac.compare_digest(signature, expected[7:])
 
         if not digests_are_equal:
             LOG.error("Payload signatures do not match!")
