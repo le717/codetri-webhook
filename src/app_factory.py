@@ -16,7 +16,6 @@ def create_app():
     # Create an app error log and general runtime logs
     app.logger.addHandler(logger.file_handler("error.log"))
     logger.LOG.addHandler(logger.file_handler("general.log"))
-    logger.LOG.addHandler(logger.stdout_hander())
 
     # Load the hooks
     app.config["SUPPORTED_HOOKS"] = {}
