@@ -1,16 +1,7 @@
-from re import match
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple
 
 
-__all__ = ["get_git_branch_or_tag", "make_response", "make_error_response"]
-
-
-def get_git_branch_or_tag(ref: str) -> Union[str, None]:
-    regex = r"refs/(?:tags|heads)/([\w\d._-]+)"
-    matches = match(regex, ref)
-    if matches:
-        return matches.group(1)
-    return None
+__all__ = ["make_response", "make_error_response"]
 
 
 def make_response(status: int, data: Optional[str] = None) -> Tuple[str, int]:
