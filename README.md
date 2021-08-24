@@ -19,7 +19,7 @@ The app operates on on two pieces: Services and Hooks. Services are Python [data
 that know how to interact with the website they are written for and perform the user-defined commands. Hooks are like configuration files.
 They specify a Service to use and provide the information needed to properly repsond to the fired webhook. On application start, the created Hooks
 are enumerated over and an endpoint for each Hook is created. So if your app is running on `http://127.0.0.1:5000` and you have a Hook named `sample.json`, a `POST`-only endpoint will be created
-at `http://127.0.0.1:5000/sample/`. You then set that url in the appropriate website's webhook configuration.
+at `http://127.0.0.1:5000/[sample]/`. You then set that url in the appropriate website's webhook configuration.
 
 Because of this architecture, a Service can be written for practically any website, and there can be any number of Hooks defined that use a single Service,
 but with Hook having their own tasks. For more details and a working example, a sample Service and Hook are available.
@@ -37,7 +37,13 @@ but with Hook having their own tasks. For more details and a working example, a 
 
 ## Deploy
 
-TODO
+1. Ensure Python 3.8+ and `pip` are installed on the server
+1. Ensure running the `python` command executes Python 3.8
+1. Ensure the [`virtualenv`](https://pypi.org/project/virtualenv/) Python package is installed
+1. Install [Poetry](https://python-poetry.org/) 1.1.0+
+1. Run `poetry install` in the webhook app directory
+1. Run `chmod u+x ./run-supervisord.sh && chmod u+x ./run-app.sh`
+1. Run `./run-supervisord.sh` to start the service
 
 
 ## License
