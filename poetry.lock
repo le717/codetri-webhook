@@ -135,6 +135,17 @@ docs = ["Sphinx (>=4)", "furo (>=2021.7.5b38)", "proselint (>=0.10.2)", "sphinx-
 test = ["appdirs (==1.4.4)", "pytest (>=6)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)"]
 
 [[package]]
+name = "python-dotenv"
+version = "0.19.2"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "regex"
 version = "2021.8.3"
 description = "Alternative regular expression module, to replace re."
@@ -155,11 +166,14 @@ testing = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "sys-vars"
-version = "4.0.1"
+version = "4.0.3"
 description = "Access system variables in your code as native Python data types."
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+python-dotenv = ">=0.19.0,<0.20.0"
 
 [[package]]
 name = "tomli"
@@ -191,7 +205,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "eee2ff7c8ccf911e8f3407dbef456d95572929c4a86c85a912747ed05c7dc888"
+content-hash = "da92f73c6437a4c0dbd1327acbca1f9422fbe7a10247630de636e5b86aa248c2"
 
 [metadata.files]
 black = [
@@ -305,6 +319,10 @@ platformdirs = [
     {file = "platformdirs-2.4.0-py3-none-any.whl", hash = "sha256:8868bbe3c3c80d42f20156f22e7131d2fb321f5bc86a2a345375c6481a67021d"},
     {file = "platformdirs-2.4.0.tar.gz", hash = "sha256:367a5e80b3d04d2428ffa76d33f124cf11e8fff2acdaa9b43d545f5c7d661ef2"},
 ]
+python-dotenv = [
+    {file = "python-dotenv-0.19.2.tar.gz", hash = "sha256:a5de49a31e953b45ff2d2fd434bbc2670e8db5273606c1e737cc6b93eff3655f"},
+    {file = "python_dotenv-0.19.2-py2.py3-none-any.whl", hash = "sha256:32b2bdc1873fd3a3c346da1c6db83d0053c3c62f28f1f38516070c4c8971b1d3"},
+]
 regex = [
     {file = "regex-2021.8.3-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:8764a78c5464ac6bde91a8c87dd718c27c1cabb7ed2b4beaf36d3e8e390567f9"},
     {file = "regex-2021.8.3-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4551728b767f35f86b8e5ec19a363df87450c7376d7419c3cac5b9ceb4bce576"},
@@ -345,8 +363,8 @@ supervisor = [
     {file = "supervisor-4.2.2.tar.gz", hash = "sha256:5b2b8882ec8a3c3733cce6965cc098b6d80b417f21229ab90b18fe551d619f90"},
 ]
 sys-vars = [
-    {file = "sys-vars-4.0.1.tar.gz", hash = "sha256:13fe73c682da4dc1eb4afa640dd33e86f42a22ffe2317131b066208fb7b7eef5"},
-    {file = "sys_vars-4.0.1-py3-none-any.whl", hash = "sha256:0b6eb5d686bbe576aa422088f7019dd704a455f0701e3edb159bacf4fc054894"},
+    {file = "sys-vars-4.0.3.tar.gz", hash = "sha256:608d6bfce1c7e3faff37f0ff806a41f3d3c90641bedfd80390035949f59a860f"},
+    {file = "sys_vars-4.0.3-py3-none-any.whl", hash = "sha256:16f6d09298150abd5c17dde228f06daf163cb3ee9e8cff5011d1353540813122"},
 ]
 tomli = [
     {file = "tomli-1.2.1-py3-none-any.whl", hash = "sha256:8dd0e9524d6f386271a36b41dbf6c57d8e32fd96fd22b6584679dc569d20899f"},
