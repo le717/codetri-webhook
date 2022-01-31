@@ -142,7 +142,7 @@ cli = ["click (>=5.0)"]
 
 [[package]]
 name = "supervisor"
-version = "4.2.2"
+version = "4.2.4"
 description = "A system for controlling process state under UNIX"
 category = "main"
 optional = false
@@ -192,7 +192,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "0eead27f5004a7dbfe26087f3e4090953354ab2e0b83c3b3d964a382058ffbcb"
+content-hash = "3f87bf63e6585978458db9edb7081652bea3f5209de198fe029d1847a6a3e2e3"
 
 [metadata.files]
 black = [
@@ -332,8 +332,8 @@ python-dotenv = [
     {file = "python_dotenv-0.19.2-py2.py3-none-any.whl", hash = "sha256:32b2bdc1873fd3a3c346da1c6db83d0053c3c62f28f1f38516070c4c8971b1d3"},
 ]
 supervisor = [
-    {file = "supervisor-4.2.2-py2.py3-none-any.whl", hash = "sha256:4adf63c8f18cf42313171ce06a73c9ae2c5e88ef27c2bb0de3b8405368595c04"},
-    {file = "supervisor-4.2.2.tar.gz", hash = "sha256:5b2b8882ec8a3c3733cce6965cc098b6d80b417f21229ab90b18fe551d619f90"},
+    {file = "supervisor-4.2.4-py2.py3-none-any.whl", hash = "sha256:bbae57abf74e078fe0ecc9f30068b6da41b840546e233ef1e659a12e4c875af6"},
+    {file = "supervisor-4.2.4.tar.gz", hash = "sha256:40dc582ce1eec631c3df79420b187a6da276bbd68a4ec0a8f1f123ea616b97a2"},
 ]
 sys-vars = [
     {file = "sys-vars-4.0.3.tar.gz", hash = "sha256:608d6bfce1c7e3faff37f0ff806a41f3d3c90641bedfd80390035949f59a860f"},
