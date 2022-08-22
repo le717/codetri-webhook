@@ -1,4 +1,6 @@
-from flask import Flask, Response
+from os import getenv
+
+from flask import Flask, Response, abort
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from src.core import config, helpers, logger
@@ -11,7 +13,7 @@ def create_app():
 
     # Load the app configuration
     app.config.update(config.app("default"))
-    app.config.update(config.app(app.config["ENV"]))
+    app.config.update(config.app(getenv("FLASK_ENV")))
 
     # Create an app error log and general runtime logs
     app.logger.addHandler(logger.file_handler("error.log"))
@@ -21,7 +23,7 @@ def create_app():
     app.config["SUPPORTED_HOOKS"] = {}
     for hook in config.hooks():
         # Don't load the Sample hook in production
-        if app.config["ENV"] == "production" and hook["name"] == "sample":
+        if getenv("FLASK_ENV") == "production" and hook["name"] == "sample":
             continue
 
         # Create an endpoint for each hook
@@ -36,6 +38,6 @@ def create_app():
     # All access to undefined routes are bad requests
     @app.errorhandler(404)
     def not_found_handler(e) -> Response:
-        return Response(*helpers.make_error_response(400, "Bad Request"))
+        abort(400)
 
     return app
