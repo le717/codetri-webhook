@@ -12,7 +12,7 @@ supervisor = "^4.2.4"
 sys-vars = "^4.0.3"
 
 [tool.poetry.dev-dependencies]
-black = "^22.8"
+black = "^22.10"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
