@@ -3,7 +3,7 @@ from os import getenv
 from flask import Flask, Response, abort
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from src.core import config, helpers, logger
+from src.core import config, logger
 from src.views import root
 
 
