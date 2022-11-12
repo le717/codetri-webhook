@@ -40,4 +40,14 @@ def create_app():
     def not_found_handler(e) -> Response:
         abort(400)
 
+    # TODO: write me
+    @app.errorhandler(405)
+    def method_not_allowed_handler(e) -> Response:
+        return {}, 400
+
+    # TODO: write me
+    @app.errorhandler(500)
+    def server_error_handler(e) -> Response:
+        return {}, 400
+
     return app
