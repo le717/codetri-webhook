@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-poetry run supervisord -c ./supervisord.conf
+env/bin/supervisord -c ./supervisord.conf
