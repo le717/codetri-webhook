@@ -12,6 +12,8 @@ from typing import Any, Dict, List, Union
 
 @dataclass(slots=True)
 class Base:
+    """Base service class. Always inherit from this class!"""
+
     name: str
     service: str
     secret: str

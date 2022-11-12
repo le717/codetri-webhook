@@ -11,6 +11,8 @@ from src.core.logger import LOG
 
 @dataclass
 class GitHub(Base):
+    """Service to respond to GitHub webhook requests."""
+
     def is_authorized(self) -> bool:
         # Make sure this user-agent is from from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
