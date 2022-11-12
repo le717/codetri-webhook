@@ -7,7 +7,7 @@ from src.core.services.base import Base
 class Sample(Base):
     def is_authorized(self) -> bool:
         """Check if this is an authorized request."""
-        secret_key = self.headers["X-Sample-Token"]
+        secret_key = self.headers.get("X-Sample-Token", "")
         return secret_key == self.secret
 
     def main(self) -> bool:

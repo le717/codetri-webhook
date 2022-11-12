@@ -18,11 +18,10 @@
       },
       "args": [
         "run",
-        "--no-debugger",
-        "--no-reload"
+        "--no-debugger"
       ],
       "jinja": true,
-      "justMyCode": true
+      "justMyCode": true,
     }
   ]
 }

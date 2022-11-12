@@ -10,20 +10,8 @@ from subprocess import run
 from typing import Any, Dict, List, Union
 
 
-@dataclass
+@dataclass(slots=True)
 class Base:
-    __slots__ = [
-        "name",
-        "service",
-        "secret",
-        "branch",
-        "destination",
-        "before_pull",
-        "after_pull",
-        "headers",
-        "body",
-    ]
-
     name: str
     service: str
     secret: str
