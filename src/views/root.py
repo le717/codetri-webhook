@@ -22,7 +22,9 @@ def main() -> str:
 
     # The service didn't receive proper auth
     if not service.is_authorized():
-        return "Incorrect authentication credentials.", 403
+        return {"status": "Incorrect authentication credentials."}, 403
 
     # Run the service's entrypoint and respond appropriately
-    return "", 200 if service.main() else "Error running webhook service.", 400
+    if service.main():
+        return {}, 200
+    return {"status": "Error running webhook service."}, 400
