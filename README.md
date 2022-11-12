@@ -35,7 +35,7 @@ but with Hook having their own tasks. For more details and a working example, a 
 
 1. Install Python 3.10+ [Poetry](https://python-poetry.org/) 1.2.0+
 1. If you want to use a pre-configured debug launch, also install VS Code
-1. Create required secret keys (default: `./secrets` or environment)
+1. Create required secret keys in `./secrets`
 1. Run `poetry install`
 1. Launch the service using the provided VS Code launch configuration
 
@@ -46,7 +46,7 @@ but with Hook having their own tasks. For more details and a working example, a 
    installing [python-is-python3](https://packages.ubuntu.com/jammy/python-is-python3) if necessary
 1. Ensure the [`virtualenv`](https://pypi.org/project/virtualenv/) Python package is installed
 1. Ensure a reverse proxy through Apache, nginx, Caddy, or the like is set up
-1. Run `. ./install.sh` to create the app virtualenv and install the app.
+1. Run `. ./install.sh` to create the app virtualenv and install the app
 
 1. Run `chmod u+x ./run-supervisord.sh && chmod u+x ./run-app.sh`
 1. Run `./run-supervisord.sh` to start the service
