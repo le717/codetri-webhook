@@ -1,6 +1,7 @@
 from importlib import import_module
 
-from flask import current_app, Blueprint, request
+from flask import Blueprint, current_app, request
+
 
 bp = Blueprint("root", __name__, url_prefix="")
 
@@ -18,7 +19,7 @@ def main() -> str:
     service = getattr(
         import_module(f"src.core.services.{hook_config['service']}"),
         hook_config["service"],
-    )(**hook_config, headers=dict(request.headers), body=request.get_json())
+    )(**hook_config, headers=dict(request.headers), body=request.get_json(silent=True))
 
     # The service didn't receive proper auth
     if not service.is_authorized():
