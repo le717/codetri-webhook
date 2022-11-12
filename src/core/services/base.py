@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from os import fspath
 from pathlib import Path
 from subprocess import run
-from typing import Any, Dict, List, Union
+from typing import Any
 
 
 @dataclass(slots=True)
@@ -19,10 +19,10 @@ class Base:
     secret: str
     branch: str
     destination: str
-    before_pull: List[str]
-    after_pull: List[str]
-    headers: Dict[str, str]
-    body: Union[Dict[str, Any], None]
+    before_pull: list[str]
+    after_pull: list[str]
+    headers: dict[str, str]
+    body: dict[str, Any] | None
 
     def is_authorized(self) -> bool:
         raise NotImplementedError(
@@ -33,7 +33,7 @@ class Base:
         raise NotImplementedError("main() must be implemented by the child class!")
 
     @staticmethod
-    def run_commands(commands: List[str]) -> bool:
+    def run_commands(commands: list[str]) -> bool:
         success = True
         for command in commands:
             if run(command).returncode != 0:

@@ -30,25 +30,25 @@ but with Hook having their own tasks. For more details and a working example, a 
 
 ## Development
 
-1. Install Python 3.8+ [Poetry](https://python-poetry.org/) 1.1.0+, and VS Code
+1. Install Python 3.10+ [Poetry](https://python-poetry.org/) 1.1.0+, and VS Code
 1. Create required secret keys (default: `./secrets` or environment)
 1. Run `poetry install`
 1. Launch the service using the provided VS Code launch configuration
 
 ## Deploy
 
-1. Ensure Python 3.8+ and `pip` are installed on the server
-1. Ensure running the `python` command executes Python 3.8,
+1. Ensure Python 3.10+ and `pip` are installed on the server
+1. Ensure running the `python` command executes Python 3.10,
    installing [python-is-python3](https://packages.ubuntu.com/jammy/python-is-python3) if necessary
-3. Ensure the [`virtualenv`](https://pypi.org/project/virtualenv/) Python package is installed
-4. Install [Poetry](https://python-poetry.org/) 1.1.0+
-5. Run `poetry install` in the webhook app directory
+1. Ensure the [`virtualenv`](https://pypi.org/project/virtualenv/) Python package is installed
+1. Run `. ./install.sh` to create the app virtualenv and install the app.
+
 6. Run `chmod u+x ./run-supervisord.sh && chmod u+x ./run-app.sh`
 7. Run `./run-supervisord.sh` to start the service
 
 
 ## License
 
-2019, 2021 Caleb
+2019, 2021-2022 Caleb
 
 [MIT](LICENSE)
