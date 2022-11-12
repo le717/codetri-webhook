@@ -33,7 +33,8 @@ but with Hook having their own tasks. For more details and a working example, a 
 
 ## Development
 
-1. Install Python 3.10+ [Poetry](https://python-poetry.org/) 1.1.0+, and VS Code
+1. Install Python 3.10+ [Poetry](https://python-poetry.org/) 1.2.0+
+1. If you want to use a pre-configured debug launch, also install VS Code
 1. Create required secret keys (default: `./secrets` or environment)
 1. Run `poetry install`
 1. Launch the service using the provided VS Code launch configuration
