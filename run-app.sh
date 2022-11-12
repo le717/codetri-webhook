@@ -9,6 +9,6 @@ trim() {
     echo "$var"
 }
 
-port=$(< ./secrets/BIND_PORT)"
+port="$(< ./secrets/BIND_PORT)"
 port="$(trim ${port})"
 env/bin/gunicorn --bind 127.0.0.1:${port} --workers 2 --log-level error --access-logfile ./log/gunicorn.access.log --error-logfile ./log/gunicorn.error.log wsgi:app
