@@ -1,23 +1,45 @@
+from pathlib import Path
 from sys import argv
-from toml import load
+from toml import loads
 
 
-def get_package(package: dict) -> str:
-    return f"{package['name']}=={package['version']}"
+def get_package(package_info: dict) -> str:
+    """Construct the package name and exact version to install."""
+    package_tag = f"{package_info['name']}=={package_info['version']}"
+
+    # The package is a local file
+    source = package_info.setdefault("source", {})
+    if source.get("type") == "file":
+        # Trim off the app root path
+        package_tag = package_info["source"]["url"]
+        package_tag = package_tag[package_tag.find("/") + 1 :]  # skipcq: FLK-E203
+
+    # The package is from a URL
+    elif source.get("type") == "url":
+        package_tag = package_info["source"]["url"]
+
+    # The package is from a git repo revision
+    elif source.get("type") == "git":
+        git_hash = package_info["source"]["resolved_reference"]
+        git_repo_archive = package_info["source"]["url"].replace(".git", "/archive")
+        package_tag = f"{git_repo_archive}/{git_hash}.zip"
+
+    return package_tag
 
 
 def filter_packages(packages: list, key: str) -> list:
-    return list(filter(lambda p: p["category"] == key, packages))
+    """Filter out packages based on the given category."""
+    return [p for p in packages if p["category"] == key]
 
 
 # Does the user want to include the dev packages?
 try:
-    get_dev_packages = argv[1].upper() == "--DEV"
+    get_dev_packages = argv[1].lower() == "--dev"
 except IndexError:
     get_dev_packages = False
 
 # Load the lock file contents and get the respective package for each category
-poetry_lock = load(open("./poetry.lock"))
+poetry_lock = loads((Path() / "poetry.lock").read_text())
 all_packages = filter_packages(poetry_lock["package"], "main")
 
 # Write the dev packages if requested
