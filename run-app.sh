@@ -22,3 +22,4 @@ venv/bin/gunicorn --bind 127.0.0.1:${port} --workers 2 --log-level error --acces
 
 # sudo lsof -i :6000
 # ps -ef | grep supervisord
+# ps -ef | grep gunicorn
