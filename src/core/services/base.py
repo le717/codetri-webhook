@@ -9,6 +9,11 @@ from pathlib import Path
 from subprocess import run
 from typing import Any
 
+from werkzeug.datastructures import EnvironHeaders
+
+
+__all__ = ["Base"]
+
 
 @dataclass(slots=True)
 class Base:
@@ -21,7 +26,7 @@ class Base:
     destination: str
     before_pull: list[str]
     after_pull: list[str]
-    headers: dict[str, str]
+    headers: EnvironHeaders
     body: dict[str, Any] | None
 
     def is_authorized(self) -> bool:

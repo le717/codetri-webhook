@@ -13,13 +13,14 @@ def main() -> str:
     # Get the config for this webhook
     # We don't have to check if this exists since
     # we are only here because it's been defined
-    hook_config = current_app.config["SUPPORTED_HOOKS"][this_endpoint]
+    hook = current_app.config["SUPPORTED_HOOKS"][this_endpoint]
 
     # Next, we import the defined service and give it the info it needs
-    service = getattr(
-        import_module(f"src.core.services.{hook_config['service']}"),
-        hook_config["service"],
-    )(**hook_config, headers=dict(request.headers), body=request.get_json(silent=True))
+    service = getattr(import_module(f"services.{hook['service']}"), hook["service"])(
+        **hook,
+        headers=request.headers,
+        body=request.get_json(silent=True),
+    )
 
     # The service didn't receive proper auth
     if not service.is_authorized():

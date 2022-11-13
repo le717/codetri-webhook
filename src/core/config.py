@@ -33,5 +33,5 @@ def app(env_name: str) -> dict[str, Any]:
 
 def hooks() -> Generator[str, None, None]:
     """Load all available hook configurations."""
-    for hook_file in Path("hooks").resolve().iterdir():
-        yield loads(hook_file.read_text())
+    for f in Path("hooks").resolve().glob("*.json"):
+        yield loads(f.read_text())
