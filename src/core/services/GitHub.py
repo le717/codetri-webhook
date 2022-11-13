@@ -47,7 +47,7 @@ class GitHub(Base):
             return False
 
         # Pull the latest code
-        if not self.pull_from_git(dest_dir):
+        if not self.git_pull(dest_dir):
             return False
 
         # Run any required commands after pulling

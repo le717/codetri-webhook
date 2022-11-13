@@ -24,8 +24,8 @@ class Base:
     secret: str
     branch: str
     destination: str
-    before_pull: list[str]
-    after_pull: list[str]
+    before_pull: list[list[str]]
+    after_pull: list[list[str]]
     headers: EnvironHeaders
     body: dict[str, Any] | None
 
@@ -46,6 +46,6 @@ class Base:
                 break
         return success
 
-    def pull_from_git(self, dest_dir: Path) -> bool:
+    def git_pull(self, dest_dir: Path) -> bool:
         pull_command = ["git", "-C", fspath(dest_dir), "pull", "origin", self.branch]
         return run(pull_command).returncode == 0
