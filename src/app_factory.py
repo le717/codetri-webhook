@@ -28,10 +28,6 @@ def create_app():
     # Load the hooks
     app.config["SUPPORTED_HOOKS"] = {}
     for hook in config.hooks():
-        # Don't load the Sample hook in production
-        if getenv("FLASK_ENV") == "production" and hook["name"] == "sample":
-            continue
-
         # Create an endpoint for each hook
         app.config["SUPPORTED_HOOKS"].update({hook["name"]: hook})
         root.bp.add_url_rule(
