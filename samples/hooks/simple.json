@@ -1,6 +1,6 @@
 {
-  "name": "sample",
-  "service": "Sample",
+  "name": "simple",
+  "service": "Simple",
   "secret": "717171717",
   "branch": "",
   "destination": "",

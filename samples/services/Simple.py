@@ -3,8 +3,11 @@ from dataclasses import dataclass
 from src.core.services.base import Base
 
 
+__all__ = ["Simple"]
+
+
 @dataclass
-class Sample(Base):
+class Simple(Base):
     def is_authorized(self) -> bool:
         """Check if this is an authorized request."""
         secret_key = self.headers.get("X-Sample-Token", "")
