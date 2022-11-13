@@ -9,6 +9,16 @@ trim() {
     echo "$var"
 }
 
+# export SYS_VARS_PATH="./secrets"
+# export FLASK_ENV="development"
+
 port="$(< ./secrets/BIND_PORT)"
 port="$(trim ${port})"
-env/bin/gunicorn --bind 127.0.0.1:${port} --workers 2 --log-level error --access-logfile ./log/access.log --error-logfile ./log/error.log wsgi:app
+
+echo $SYS_VARS_PATH
+echo $FLASK_ENV
+
+venv/bin/gunicorn --bind 127.0.0.1:${port} --workers 2 --log-level error --access-logfile ./log/access.log --error-logfile ./log/error.log wsgi:app
+
+# sudo lsof -i :6000
+# ps -ef | grep supervisord
