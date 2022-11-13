@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# https://stackoverflow.com/a/3352015
 trim() {
+    # https://stackoverflow.com/a/3352015
     local var="$*"
     # remove leading whitespace characters
     var="${var#"${var%%[![:space:]]*}"}"
@@ -9,17 +9,14 @@ trim() {
     echo "$var"
 }
 
-# export SYS_VARS_PATH="./secrets"
-# export FLASK_ENV="development"
-
+# Get the bind port
 port="$(< ./secrets/BIND_PORT)"
 port="$(trim ${port})"
 
-echo $SYS_VARS_PATH
-echo $FLASK_ENV
-
+# Start the app
 venv/bin/gunicorn --bind 127.0.0.1:${port} --workers 2 --log-level error --access-logfile ./log/access.log --error-logfile ./log/error.log wsgi:app
 
+# Commands to help with debugging
 # sudo lsof -i :6000
 # ps -ef | grep supervisord
 # ps -ef | grep gunicorn
