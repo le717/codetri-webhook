@@ -3,6 +3,7 @@
     "SECRET_KEY"
   ],
   "appConfig": {
-    "FLASK_APP": "wsgi.py"
+    "FLASK_APP": "wsgi.py",
+    "FLASK_SKIP_DOTENV": 1
   }
 }
