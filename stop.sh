@@ -4,4 +4,4 @@
 # TODO: Do this!
 
 # Stop the gunicorn processes
-lsof -t -i:$port | xargs kill -9
+lsof -t -i:$webhook_bind_port | xargs kill -9

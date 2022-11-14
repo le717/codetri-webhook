@@ -52,7 +52,6 @@ but with Hook having their own tasks. For more details and a working example, a 
 1. Ensure a reverse proxy through Apache, nginx, Caddy, or the like is set up
 1. Create required secret keys in `./secrets`
 1. Run `. ./install.sh` to create the app virtualenv and install the app
-1. Run `chmod u+x ./start.sh ./stop.sh ./run-app.sh`
 1. Run `./start.sh` to start the service
     - The app will bind on `http://127.0.0.1:6000`
     - To change the port, change the the HTTP bind port secret value

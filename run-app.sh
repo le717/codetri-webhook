@@ -10,11 +10,11 @@ trim() {
 }
 
 # Get the bind port
-port="$(< ./secrets/BIND_PORT)"
-port="$(trim ${port})"
+webhook_bind_port="$(< ./secrets/BIND_PORT)"
+webhook_bind_port="$(trim ${port})"
 
 # Start the app
-venv/bin/gunicorn --bind 127.0.0.1:${port} --workers 2 --log-level error --access-logfile ./log/access.log --error-logfile ./log/error.log wsgi:app
+venv/bin/gunicorn --bind 127.0.0.1:${webhook_bind_port} --workers 2 --log-level error --access-logfile ./log/access.log --error-logfile ./log/error.log wsgi:app
 
 # Commands to help with debugging
 # sudo lsof -i :6000
