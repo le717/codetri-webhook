@@ -11,10 +11,11 @@ trim() {
 
 # Get the bind port
 webhook_bind_port="$(< ./secrets/BIND_PORT)"
-webhook_bind_port="$(trim ${port})"
+webhook_bind_port="$(trim ${webhook_bind_port})"
 
 # Stop the supervisord process
-# TODO: Do this!
+sup_pid="$(< ./configuration/supervisord.pid)"
+kill -9 sup_pid
 
 # Stop the gunicorn processes
 lsof -t -i :$webhook_bind_port | xargs kill -9
