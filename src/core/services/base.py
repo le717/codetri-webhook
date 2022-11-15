@@ -38,7 +38,7 @@ class Base:
         raise NotImplementedError("main() must be implemented by the child class!")
 
     @staticmethod
-    def run_commands(commands: list[str]) -> bool:
+    def run_commands(commands: list[list[str]]) -> bool:
         success = True
         for command in commands:
             if run(command).returncode != 0:

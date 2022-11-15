@@ -14,6 +14,7 @@ class GitHub(Base):
     """Service to respond to GitHub webhook requests."""
 
     def is_authorized(self) -> bool:
+        # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#delivery-headers
         # Make sure this user-agent is from from GitHub
         is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
         if not is_github:
