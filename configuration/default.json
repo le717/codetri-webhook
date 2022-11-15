@@ -4,6 +4,6 @@
   ],
   "appConfig": {
     "FLASK_APP": "wsgi.py",
-    "FLASK_SKIP_DOTENV": 1
+    "FLASK_SKIP_DOTENV": 0
   }
 }
