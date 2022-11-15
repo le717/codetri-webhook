@@ -1,0 +1,9 @@
+{
+  "name": "github",
+  "service": "GHPush",
+  "secret": "717171717",
+  "branch": "",
+  "destination": "",
+  "before_pull": [],
+  "after_pull": []
+}

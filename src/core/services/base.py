@@ -27,7 +27,7 @@ class BaseMixin:
     before_pull: list[list[str]]
     after_pull: list[list[str]]
     headers: EnvironHeaders
-    body: dict[str, Any] | None
+    body: Any | None
 
     def is_authorized(self) -> bool:
         raise NotImplementedError(
