@@ -16,6 +16,7 @@ webhook_bind_port="$(trim ${webhook_bind_port})"
 # Stop the supervisord process
 sup_pid="$(< ./configuration/supervisord.pid)"
 kill -9 $sup_pid
+rm ./configuration/supervisord.pid
 
 # Stop the gunicorn processes
 lsof -t -i :$webhook_bind_port | xargs kill -9
