@@ -12,12 +12,12 @@ from typing import Any
 from werkzeug.datastructures import EnvironHeaders
 
 
-__all__ = ["Base"]
+__all__ = ["BaseMixin"]
 
 
 @dataclass(slots=True)
-class Base:
-    """Base service class. Always inherit from this class!"""
+class BaseMixin:
+    """Base service mixin. Always inherit from this class!"""
 
     name: str
     service: str
@@ -37,8 +37,7 @@ class Base:
     def main(self) -> bool:
         raise NotImplementedError("main() must be implemented by the child class!")
 
-    @staticmethod
-    def run_commands(commands: list[list[str]]) -> bool:
+    def run_commands(self, commands: list[list[str]]) -> bool:
         success = True
         for command in commands:
             if run(command).returncode != 0:

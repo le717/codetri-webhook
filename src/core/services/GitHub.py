@@ -2,16 +2,19 @@ import hashlib
 import hmac
 from dataclasses import dataclass
 from json import dumps
-from os import chdir
-from pathlib import Path
 
-from src.core.services.base import Base
 from src.core.logger import LOG
+
+__all__ = ["GitHubMixin"]
 
 
 @dataclass
-class GitHub(Base):
-    """Service to respond to GitHub webhook requests."""
+class GitHubMixin:
+    """Service mixin to respond to GitHub webhook requests.
+
+    Do not use this class directly! Create a dataclass that inherits from
+    `GitHubMixin, BaseMixin` to create a Service.
+    """
 
     def is_authorized(self) -> bool:
         # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#delivery-headers
@@ -37,23 +40,3 @@ class GitHub(Base):
         if not digests_are_equal:
             LOG.error("Payload signatures do not match!")
         return is_github and digests_are_equal
-
-    def main(self) -> bool:
-        # Get a full path to the destination and go to it
-        dest_dir = Path(self.destination).expanduser().resolve()
-        chdir(dest_dir)
-
-        # Run any required commands before we `git pull`
-        if not self.run_commands(self.before_pull):
-            return False
-
-        # Pull the latest code
-        if not self.git_pull(dest_dir):
-            return False
-
-        # Run any required commands after pulling
-        if not self.run_commands(self.after_pull):
-            return False
-
-        # Everything worked! Woo! :D
-        return True
