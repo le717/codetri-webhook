@@ -17,6 +17,6 @@ webhook_bind_port="$(trim ${webhook_bind_port})"
 venv/bin/gunicorn --bind 127.0.0.1:${webhook_bind_port} --workers 2 --log-level error --access-logfile ./log/access.log --error-logfile ./log/error.log wsgi:app
 
 # Commands to help with debugging
-# sudo lsof -i :6000
+# lsof -i :6000
 # ps -ef | grep venv/bin/supervisord
-# ps -ef | grep gunicorn
+# ps -ef | grep venv/bin/gunicorn
