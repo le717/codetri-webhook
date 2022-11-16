@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from core.services.BaseMixin import BaseMixin
+from src.core.services import BaseMixin
 
 
 __all__ = ["Simple"]
