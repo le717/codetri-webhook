@@ -19,7 +19,7 @@ def main() -> str:
     service = getattr(import_module(f"services.{hook['service']}"), hook["service"])(
         **hook,
         headers=request.headers,
-        body=request.get_json(silent=True),
+        body=request.data,
     )
 
     # The service didn't receive proper auth
