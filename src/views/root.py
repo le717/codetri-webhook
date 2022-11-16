@@ -19,7 +19,7 @@ def main() -> tuple[dict, int]:
     service = getattr(import_module(f"services.{hook['service']}"), hook["service"])(
         **hook,
         headers=request.headers,
-        body=request.data,
+        body=request.get_data(),
     )
 
     # The service didn't receive proper auth

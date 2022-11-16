@@ -2,7 +2,10 @@ import hashlib
 import hmac
 from json import dumps, loads
 
+from werkzeug.urls import url_decode
+
 from src.core.logger import LOG
+
 
 __all__ = ["GitHubAuthMixin"]
 
@@ -18,14 +21,18 @@ class GitHubAuthMixin:
     is_form: bool = False
 
     def preprocess(self) -> None:
+        # One of the options must be set
         if not self.is_json and not self.is_form:
-            raise TypeError("Request body type must be set, either JSON or form data.")
+            raise TypeError(
+                "Request body type must be set, either JSON or form parameter."
+            )
 
+        # Parse the request body as desired
         if self.body and self.is_json:
             self.body = loads(self.body.decode())
             return None
         if self.body and self.is_form:
-            # TODO: implement this
+            self.body = url_decode(self.body)
             return None
 
     def is_authorized(self) -> bool:
