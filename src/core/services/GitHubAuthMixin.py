@@ -1,7 +1,7 @@
 import hashlib
 import hmac
 from dataclasses import dataclass
-from json import dumps
+from json import dumps, loads
 
 from src.core.logger import LOG
 
@@ -15,6 +15,20 @@ class GitHubAuthMixin:
     Do not use this class directly! Create a dataclass that inherits from
     `GitHubAuthMixin, BaseMixin` to create a Service.
     """
+
+    is_json: bool = False
+    is_form: bool = False
+
+    def __post__init__(self):
+        if not self.is_json and not self.is_form:
+            raise TypeError("Request body type must be set, either JSON or form data.")
+
+        if self.body and self.is_json:
+            self.body = loads(self.body.decode())
+            return None
+        if self.body and self.is_form:
+            # TODO: implement this
+            return None
 
     def is_authorized(self) -> bool:
         # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#delivery-headers

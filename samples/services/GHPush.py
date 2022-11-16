@@ -1,19 +1,32 @@
 from dataclasses import dataclass
-from json import loads
 from pprint import pprint
 
 from src.core.services import BaseMixin, GitHubAuthMixin
 
 
-__all__ = ["GHPush"]
+__all__ = ["GHPushForm", "GHPushJSON"]
 
 
-@dataclass
-class GHPush(GitHubAuthMixin, BaseMixin):
+class GHPushForm(GitHubAuthMixin, BaseMixin):
+    is_form: bool = True
+
     def main(self) -> bool:
         # Nicely print the request body
         if self.body:
-            pprint(loads(self.body.decode()))
+            pprint(self.body)
+        else:
+            print("No request body received")
+        return True
+
+
+@dataclass
+class GHPushJSON(GitHubAuthMixin, BaseMixin):
+    is_json: bool = True
+
+    def main(self) -> bool:
+        # Nicely print the request body
+        if self.body:
+            pprint(self.body)
         else:
             print("No request body received")
         return True
