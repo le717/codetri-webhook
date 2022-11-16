@@ -38,10 +38,10 @@ class GitHubAuthMixin:
     def is_authorized(self) -> bool:
         # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#delivery-headers
         # Make sure this user-agent is from from GitHub
-        is_github = self.headers["User-Agent"].startswith("GitHub-Hookshot/")
-        if not is_github:
+        if not self.headers["User-Agent"].startswith("GitHub-Hookshot/"):
             LOG.error("This request's User-Agent is not from github.com!")
             LOG.info(f"User-Agent provided: {self.headers['User-Agent']}")
+            return False
 
         # Make sure we have the signature
         if (expected := self.headers.get("X-Hub-Signature-256")) is None:
@@ -54,8 +54,10 @@ class GitHubAuthMixin:
         signature = hmac.new(
             self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha256
         ).hexdigest()
-        digests_are_equal = hmac.compare_digest(signature, expected[7:])
 
-        if not digests_are_equal:
-            LOG.error("Payload signatures do not match!")
-        return is_github and digests_are_equal
+        # The payload signatures match, we're good
+        if hmac.compare_digest(signature, expected[7:]):
+            return True
+
+        LOG.error("Payload signatures do not match!")
+        return False
