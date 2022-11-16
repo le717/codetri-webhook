@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "codetri-webhook"
-version = "0.2.0"
+version = "0.3.0"
 description = "A small webhook responder"
 authors = ["Caleb <le717@users.noreply.github.com>"]
 readme = "README.md"

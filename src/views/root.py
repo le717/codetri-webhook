@@ -6,7 +6,7 @@ from flask import Blueprint, current_app, request
 bp = Blueprint("root", __name__, url_prefix="")
 
 
-def main() -> str:
+def main() -> tuple[dict, int]:
     # Get the current endpoint and request data
     this_endpoint = request.path.lstrip("/")
 

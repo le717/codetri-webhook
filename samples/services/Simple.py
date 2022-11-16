@@ -1,12 +1,9 @@
-from dataclasses import dataclass
-
 from src.core.services import BaseMixin
 
 
 __all__ = ["Simple"]
 
 
-@dataclass
 class Simple(BaseMixin):
     def is_authorized(self) -> bool:
         """Check if this is an authorized request."""

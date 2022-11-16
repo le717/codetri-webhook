@@ -15,9 +15,9 @@ and setting up the webhook, you can basically run any commands you want once the
 
 ## Operation
 
-The app operates on two pieces: Services and Hooks. Services are Python [dataclasses](https://docs.python.org/3/library/dataclasses.html)
-that know how to interact with the website they are written for and perform the user-defined commands. Hooks are configuration files.
-They specify a Service to use and provide the information needed to properly respond to the fired webhook. On application start, the created Hooks
+The app operates on two pieces: Services and Hooks. Services are Python classes that know how to interact with the website
+they are written for and perform the user-defined commands. Hooks are configuration files. They specify a Service to use
+and provide the information needed to properly respond to the fired webhook. On application start, the created Hooks
 are enumerated over and an endpoint for each Hook is created.
 
 So, if your app is running at `http://127.0.0.1:5000` and you have a Hook named `sample.json`, a `POST`-only endpoint will be created

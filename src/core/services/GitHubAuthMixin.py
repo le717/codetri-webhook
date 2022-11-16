@@ -1,6 +1,5 @@
 import hashlib
 import hmac
-from dataclasses import dataclass
 from json import dumps, loads
 
 from src.core.logger import LOG
@@ -8,18 +7,17 @@ from src.core.logger import LOG
 __all__ = ["GitHubAuthMixin"]
 
 
-@dataclass
 class GitHubAuthMixin:
     """Service mixin to authorize GitHub webhook requests.
 
-    Do not use this class directly! Create a dataclass that inherits from
+    Do not use this class directly! Create a class that inherits from
     `GitHubAuthMixin, BaseMixin` to create a Service.
     """
 
     is_json: bool = False
     is_form: bool = False
 
-    def __post__init__(self):
+    def preprocess(self):
         if not self.is_json and not self.is_form:
             raise TypeError("Request body type must be set, either JSON or form data.")
 

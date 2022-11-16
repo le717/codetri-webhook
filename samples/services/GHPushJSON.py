@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from pprint import pprint
 
 from src.core.services import BaseMixin, GitHubAuthMixin
@@ -7,7 +6,6 @@ from src.core.services import BaseMixin, GitHubAuthMixin
 __all__ = ["GHPushJSON"]
 
 
-@dataclass
 class GHPushJSON(GitHubAuthMixin, BaseMixin):
     is_json: bool = True
 
