@@ -24,7 +24,7 @@ So, if your app is running at `http://127.0.0.1:5000` and you have a Hook named 
 at `http://127.0.0.1:5000/sample`. You then set that url in the appropriate website's webhook configuration.
 
 Because of this architecture, a Service can be written for practically any website, and there can be any number of Hooks defined that use a single Service,
-but with Hook having their own tasks. For more details and a working example, a sample Service and Hook are available.
+but with Hook having their own tasks. For more details and a working example, sample Services and Hooks are available.
 
 ## Creating a service/hook
 

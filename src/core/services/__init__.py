@@ -1,5 +1,5 @@
-from src.core.services.base import BaseMixin
-from src.core.services.GitHub import GitHubMixin
+from core.services.BaseMixin import BaseMixin
+from core.services.GitHubAuthMixin import GitHubAuthMixin
 
 
-__all__ = ["BaseMixin", "GitHubMixin"]
+__all__ = ["BaseMixin", "GitHubAuthMixin"]

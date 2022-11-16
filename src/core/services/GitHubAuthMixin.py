@@ -5,15 +5,15 @@ from json import dumps
 
 from src.core.logger import LOG
 
-__all__ = ["GitHubMixin"]
+__all__ = ["GitHubAuthMixin"]
 
 
 @dataclass
-class GitHubMixin:
-    """Service mixin to respond to GitHub webhook requests.
+class GitHubAuthMixin:
+    """Service mixin to authorize GitHub webhook requests.
 
     Do not use this class directly! Create a dataclass that inherits from
-    `GitHubMixin, BaseMixin` to create a Service.
+    `GitHubAuthMixin, BaseMixin` to create a Service.
     """
 
     def is_authorized(self) -> bool:
