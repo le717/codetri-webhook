@@ -24,7 +24,8 @@ class BaseMixin:
         self.commands: dict[str, list[list[str]] | list] = kwargs["commands"]
         self.addi_info: dict[str, Any] = kwargs["addi_info"]
         self.headers: EnvironHeaders = kwargs["headers"]
-        self.body: bytes = kwargs["body"]
+        self.body: Any = kwargs["body"]
+        self.raw_body: bytes = kwargs["body"]
 
         # If we have a preprocess method, we need to call it
         if hasattr(self, "preprocess") and callable(self.preprocess):

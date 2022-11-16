@@ -29,10 +29,10 @@ class GitHubAuthMixin:
 
         # Parse the request body as desired
         if self.body and self.is_json:
-            self.body = loads(self.body.decode())
+            self.body = loads(self.raw_body.decode())
             return None
         if self.body and self.is_form:
-            self.body = url_decode(self.body)
+            self.body = url_decode(self.raw_body)
             return None
 
     def is_authorized(self) -> bool:
@@ -49,6 +49,7 @@ class GitHubAuthMixin:
             return False
 
         # Calculate the payload signature to ensure it's correct
+        # TODO: This needs to process application/x-www-form-urlencoded correctly
         # https://developer.github.com/webhooks/securing/
         msg = dumps(self.body, separators=(",", ":")).encode("utf-8")
         signature = hmac.new(
