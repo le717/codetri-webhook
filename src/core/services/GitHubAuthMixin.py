@@ -49,11 +49,9 @@ class GitHubAuthMixin:
             return False
 
         # Calculate the payload signature to ensure it's correct
-        # TODO: This needs to process application/x-www-form-urlencoded correctly
         # https://developer.github.com/webhooks/securing/
-        msg = dumps(self.body, separators=(",", ":")).encode("utf-8")
         signature = hmac.new(
-            self.secret.encode("utf-8"), msg=msg, digestmod=hashlib.sha256
+            self.secret.encode(), msg=self.raw_body, digestmod=hashlib.sha256
         ).hexdigest()
 
         # The payload signatures match, we're good
