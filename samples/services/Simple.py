@@ -12,11 +12,11 @@ class Simple(BaseMixin):
 
     def main(self) -> bool:
         # Run any required commands before we `git pull`
-        if not self.run_commands(self.before_pull):
+        if not self.run_commands(self.commands["before_pull"]):
             return False
 
         # Run any required commands after the `git pull`
-        if not self.run_commands(self.after_pull):
+        if not self.run_commands(self.commands["after_pull"]):
             return False
 
         # Everything worked! Woo! :D

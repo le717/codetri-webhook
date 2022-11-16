@@ -17,7 +17,7 @@ class GitHubAuthMixin:
     is_json: bool = False
     is_form: bool = False
 
-    def preprocess(self):
+    def preprocess(self) -> None:
         if not self.is_json and not self.is_form:
             raise TypeError("Request body type must be set, either JSON or form data.")
 

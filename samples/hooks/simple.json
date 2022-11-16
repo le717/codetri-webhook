@@ -2,12 +2,17 @@
   "name": "simple",
   "service": "Simple",
   "secret": "717171717",
-  "branch": "",
-  "destination": "",
-  "before_pull": [["python", "-m", "this"]],
-  "after_pull": [
-      ["python",
-       "-c",
-       "import random; print('Your random number for today is', random.random())"]
-  ]
+  "commands": {
+    "before_pull": [
+      ["python", "-m", "this"]
+    ],
+    "after_pull": [
+      [
+        "python",
+        "-c",
+        "import random; print('Your random number for today is', random.random())"
+      ]
+    ]
+  },
+  "addi_info": {}
 }

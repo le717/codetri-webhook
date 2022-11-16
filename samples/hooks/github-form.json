@@ -2,8 +2,6 @@
   "name": "github-form",
   "service": "GHPushForm",
   "secret": "717171717",
-  "branch": "",
-  "destination": "",
-  "before_pull": [],
-  "after_pull": []
+  "commands": {},
+  "addi_info": {}
 }

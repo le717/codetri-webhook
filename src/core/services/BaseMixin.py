@@ -6,6 +6,7 @@ Do not directly use this as a service!
 from os import fspath
 from pathlib import Path
 from subprocess import run
+from typing import Any
 
 from werkzeug.datastructures import EnvironHeaders
 
@@ -20,10 +21,8 @@ class BaseMixin:
         self.name: str = kwargs["name"]
         self.service: str = kwargs["service"]
         self.secret: str = kwargs["secret"]
-        self.branch: str = kwargs["branch"]
-        self.destination: str = kwargs["destination"]
-        self.before_pull: list[list[str]] = kwargs["before_pull"]
-        self.after_pull: list[list[str]] = kwargs["after_pull"]
+        self.commands: dict[str, list[list[str]] | list] = kwargs["commands"]
+        self.addi_info: dict[str, Any] = kwargs["addi_info"]
         self.headers: EnvironHeaders = kwargs["headers"]
         self.body: bytes = kwargs["body"]
 
