@@ -4,7 +4,7 @@ from json import dumps, loads
 
 from werkzeug.urls import url_decode
 
-from src.core.logger import LOG
+from src.core.logger import logger
 
 
 __all__ = ["GitHubAuthMixin"]
@@ -39,13 +39,15 @@ class GitHubAuthMixin:
         # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#delivery-headers
         # Make sure this user-agent is from from GitHub
         if not self.headers["User-Agent"].startswith("GitHub-Hookshot/"):
-            LOG.error("This request's User-Agent is not from github.com!")
-            LOG.info(f"User-Agent provided: {self.headers['User-Agent']}")
+            logger.error(
+                "This request's User-Agent is not from github.com! "
+                f"User-Agent provided: {self.headers['User-Agent']}"
+            )
             return False
 
         # Make sure we have the signature
         if (expected := self.headers.get("X-Hub-Signature-256")) is None:
-            LOG.error("X-Hub-Signature-256 header was not provided!")
+            logger.error("X-Hub-Signature-256 header was not provided!")
             return False
 
         # Calculate the payload signature to ensure it's correct
@@ -58,5 +60,5 @@ class GitHubAuthMixin:
         if hmac.compare_digest(signature, expected[7:]):
             return True
 
-        LOG.error("Payload signatures do not match!")
+        logger.error("Payload signatures do not match!")
         return False

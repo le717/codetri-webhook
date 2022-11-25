@@ -3,11 +3,10 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 
-__all__ = ["LOG", "file_handler"]
+__all__ = ["logger", "file_handler"]
 
 
-LOG = logging.getLogger(__name__)
-LOG.setLevel(logging.ERROR)
+logger = logging.getLogger(__name__)
 
 
 def file_handler(log_name: str) -> RotatingFileHandler:
@@ -18,6 +17,7 @@ def file_handler(log_name: str) -> RotatingFileHandler:
         backupCount=5,
         delay=True,
     )
+    handler.setLevel(logging.ERROR)
     handler.setFormatter(
         logging.Formatter("[%(asctime)s - %(levelname)s]: %(message)s")
     )

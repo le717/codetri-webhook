@@ -1,6 +1,6 @@
 from os import getenv
 
-from flask import Flask, Response
+from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from src.core import config, logger
@@ -9,21 +9,14 @@ from src.views import root
 
 def create_app():
     app = Flask(__name__)
-    app.wsgi_app = ProxyFix(
-        app.wsgi_app,
-        x_for=1,
-        x_proto=1,
-        x_host=1,
-        x_prefix=1,
-    )
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
     # Load the app configuration
     app.config.update(config.app("default"))
     app.config.update(config.app(getenv("FLASK_ENV")))
 
-    # Create an app error log and general runtime logs
-    app.logger.addHandler(logger.file_handler("error.log"))
-    logger.LOG.addHandler(logger.file_handler("general.log"))
+    # Create an app error log
+    logger.logger.addHandler(logger.file_handler("error.log"))
 
     # Load the hooks
     app.config["SUPPORTED_HOOKS"] = {}
@@ -41,12 +34,12 @@ def create_app():
     app.register_blueprint(root.bp)
 
     @app.errorhandler(404)
-    def not_found_handler(e) -> Response:
+    def not_found_handler(e) -> tuple[dict, int]:
         """All access to undefined routes are bad requests."""
         return {}, 400
 
     @app.errorhandler(405)
-    def method_not_allowed_handler(e) -> Response:
+    def method_not_allowed_handler(e) -> tuple[dict, int]:
         """Only POST requests are allowed."""
         return {}, 400
 
