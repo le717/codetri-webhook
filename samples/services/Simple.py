@@ -7,8 +7,17 @@ __all__ = ["Simple"]
 class Simple(BaseMixin):
     def is_authorized(self) -> bool:
         """Check if this is an authorized request."""
-        secret_key = self.headers.get("X-Sample-Token", "")
-        return secret_key == self.secret
+        # We must have an Authorization header
+        if (auth_header := self.headers.get("Authorization")) is None:
+            return False
+
+        # Make sure there's two parts to the header
+        parts = auth_header.split(" ")
+        if len(parts) != 2 or parts[0].lower() == "bearer":
+            return False
+
+        # Confirm the bearer token equals the defined secret
+        return parts[1] == self.secret
 
     def main(self) -> bool:
         # Run any required commands before we `git pull`
