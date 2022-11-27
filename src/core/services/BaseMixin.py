@@ -39,14 +39,17 @@ class BaseMixin:
     def main(self) -> bool:
         raise NotImplementedError("main() must be implemented by the child class!")
 
+    def run_command(self, command: list[str]) -> bool:
+        return run(command).returncode == 0
+
     def run_commands(self, commands: list[list[str]]) -> bool:
         success = True
         for command in commands:
-            if run(command).returncode != 0:
+            if not self.run_command(command):
                 success = False
                 break
         return success
 
-    def git_pull(self, dest_dir: Path) -> bool:
-        pull_command = ["git", "-C", fspath(dest_dir), "pull", "origin", self.branch]
-        return run(pull_command).returncode == 0
+    def git_pull(self, branch: str, dest_dir: Path) -> bool:
+        pull_command = ["git", "-C", fspath(dest_dir), "pull", "origin", branch]
+        return self.run_command(pull_command)
