@@ -176,7 +176,7 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "supervisor"
-version = "4.2.4"
+version = "4.2.5"
 description = "A system for controlling process state under UNIX"
 category = "main"
 optional = false
@@ -232,7 +232,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "0db2d9e08180d3c6d77c209100262099800b44723789a08b0bdbd1cfcef6aecf"
+content-hash = "a75df0259e751de5122671e153182632d430686edeaba24e81bbb4f91055849c"
 
 [metadata.files]
 black = [
@@ -377,8 +377,8 @@ setuptools = [
     {file = "setuptools-65.5.1.tar.gz", hash = "sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f"},
 ]
 supervisor = [
-    {file = "supervisor-4.2.4-py2.py3-none-any.whl", hash = "sha256:bbae57abf74e078fe0ecc9f30068b6da41b840546e233ef1e659a12e4c875af6"},
-    {file = "supervisor-4.2.4.tar.gz", hash = "sha256:40dc582ce1eec631c3df79420b187a6da276bbd68a4ec0a8f1f123ea616b97a2"},
+    {file = "supervisor-4.2.5-py2.py3-none-any.whl", hash = "sha256:2ecaede32fc25af814696374b79e42644ecaba5c09494c51016ffda9602d0f08"},
+    {file = "supervisor-4.2.5.tar.gz", hash = "sha256:34761bae1a23c58192281a5115fb07fbf22c9b0133c08166beffc70fed3ebc12"},
 ]
 sys-vars = [
     {file = "sys_vars-5.0.0-py3-none-any.whl", hash = "sha256:4a621425f422493987d4859d73ce8358cf59413818d661e0a63a287fc7a473a6"},
