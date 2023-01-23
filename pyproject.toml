@@ -15,7 +15,7 @@ sys-vars = "^5.0.0"
 [tool.poetry.group.dev]
 
 [tool.poetry.group.dev.dependencies]
-black = "^22.10"
+black = "^22.12"
 mypy = "^0.990"
 
 [build-system]
