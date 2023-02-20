@@ -109,3 +109,4 @@ secrets/
 /services/*
 requirements.txt
 supervisord.pid
+testing/
