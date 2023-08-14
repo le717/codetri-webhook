@@ -16,7 +16,7 @@ sys-vars = "^5.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7"
-mypy = "^1.4"
+mypy = "^1.5"
 
 [build-system]
 requires = ["poetry-core"]
