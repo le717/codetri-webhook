@@ -1,6 +1,7 @@
 from pathlib import Path
 from sys import argv
-from toml import loads
+from tomllib import loads
+from typing import Iterable
 
 
 def get_package(package_info: dict) -> str:
@@ -27,9 +28,9 @@ def get_package(package_info: dict) -> str:
     return package_tag
 
 
-def filter_packages(packages: list, key: str) -> list:
+def filter_packages(packages: list, dev_pkgs: Iterable[str]) -> list:
     """Filter out packages based on the given category."""
-    return [p for p in packages if p["category"] == key]
+    return [p for p in packages if p["name"] not in dev_pkgs]
 
 
 # Does the user want to include the dev packages?
@@ -38,15 +39,25 @@ try:
 except IndexError:
     get_dev_packages = False
 
-# Load the lock file contents and get the respective package for each category
+# Load the pyproject and poetry lock file contents
+pyproject_toml = loads((Path() / "pyproject.toml").read_text())
 poetry_lock = loads((Path() / "poetry.lock").read_text())
-all_packages = filter_packages(poetry_lock["package"], "main")
 
-# Write the dev packages if requested
+# Resolve the dev packages, if there are any used in this project
+dev_packages = (
+    pyproject_toml["tool"]["poetry"]["group"]
+    .get("dev", {})
+    .get("dependencies", {})
+    .keys()
+)
+
+# This might seem backwards, but iIf we want to install the dev packages,
+# we clear the list of dev packages so every package listed gets installed
 if get_dev_packages:
-    all_packages += filter_packages(poetry_lock["package"], "dev")
+    dev_packages = []
 
-# Open the requirements file for writing
+# Work out all of the requirements, and generate a simple requirements.txt file
+all_packages = filter_packages(poetry_lock["package"], dev_packages)
 with open("requirements.txt", "wt") as f:
     # Write all the requested packages
     for package in all_packages:

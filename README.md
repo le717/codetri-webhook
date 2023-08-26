@@ -39,7 +39,7 @@ For working examples, sample Services and Hooks are available in the `samples/` 
 
 ## Development
 
-1. Install Python 3.10+ and [Poetry](https://python-poetry.org/) 1.2.0+
+1. Install Python 3.11+ and [Poetry](https://python-poetry.org/) 1.2.0+
 1. If you want to use a pre-configured debug launch, also install VS Code
 1. Launch the service using the provided VS Code launch configuration
 1. Create required secret keys in `./secrets`
@@ -60,6 +60,6 @@ For working examples, sample Services and Hooks are available in the `samples/` 
 
 ## License
 
-2019, 2021-2022 Caleb
+2019, 2021-2023 Caleb
 
 [MIT](LICENSE)
