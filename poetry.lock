@@ -245,20 +245,6 @@ files = [
 ]
 
 [[package]]
-name = "python-dotenv"
-version = "0.21.1"
-description = "Read key-value pairs from a .env file and set them as environment variables"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "python-dotenv-0.21.1.tar.gz", hash = "sha256:1c93de8f636cde3ce377292818d0e440b6e45a82f215c3744979151fa8151c49"},
-    {file = "python_dotenv-0.21.1-py3-none-any.whl", hash = "sha256:41e12e0318bebc859fcc4d97d4db8d20ad21721a6aa5047dd59f090391cb549a"},
-]
-
-[package.extras]
-cli = ["click (>=5.0)"]
-
-[[package]]
 name = "ruff"
 version = "0.5.0"
 description = "An extremely fast Python linter and code formatter, written in Rust."
@@ -320,17 +306,17 @@ testing = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "sys-vars"
-version = "5.0.0"
+version = "5.1.0"
 description = "Access system variables in your code as native Python data types."
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "sys_vars-5.0.0-py3-none-any.whl", hash = "sha256:4a621425f422493987d4859d73ce8358cf59413818d661e0a63a287fc7a473a6"},
-    {file = "sys_vars-5.0.0.tar.gz", hash = "sha256:6635d92e060c759fc6ade0c10b7cab12d922de80fbd087231180120cc16e74ce"},
+    {file = "sys_vars-5.1.0-py3-none-any.whl", hash = "sha256:e0063af5fb03e03f8c19d42cd76d7eaf456a956053e2959ba77f237404fbb0b0"},
+    {file = "sys_vars-5.1.0.tar.gz", hash = "sha256:9ef7276aca3a94d1442161662066bf5464921ba1c481262923e1f0762e88bf08"},
 ]
 
-[package.dependencies]
-python-dotenv = ">=0.21.0,<0.22.0"
+[package.extras]
+dotenv = ["python-dotenv (>=1.0.1,<2.0.0)"]
 
 [[package]]
 name = "typing-extensions"
@@ -363,4 +349,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "eff46ef71b415b9e3d80970c12eba8b46ce533e62ffe00b0654729c654f6e0a5"
+content-hash = "b2e4045daaac5af5758f49835ddf19d4774bde0c7c193c6b6222be73baa2997e"
