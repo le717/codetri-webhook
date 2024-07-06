@@ -1,11 +1,10 @@
 import hashlib
 import hmac
-from json import dumps, loads
+from json import loads
 
 from werkzeug.urls import url_decode
 
 from src.core.logger import logger
-
 
 __all__ = ["GitHubAuthMixin"]
 
