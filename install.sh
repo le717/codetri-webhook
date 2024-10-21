@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+# Make sure the virtualenv package is installed
+apt install python3.10-venv -y
+
 # Create the virutalenv
-python -m virtualenv venv
+python -m venv venv
 
 # Install the app deps
 venv/bin/python -m pip install pip --upgrade
