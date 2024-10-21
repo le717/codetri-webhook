@@ -1,8 +1,7 @@
 import hashlib
 import hmac
 from json import loads
-
-from werkzeug.urls import url_decode
+from urllib.parse import parse_qs
 
 from src.core.logger import logger
 
@@ -30,7 +29,7 @@ class GitHubAuthMixin:
             self.body = loads(self.raw_body.decode())
             return None
         if self.body and self.is_form:
-            self.body = url_decode(self.raw_body)
+            self.body = parse_qs(self.raw_body)
             return None
 
     def is_authorized(self) -> bool:
