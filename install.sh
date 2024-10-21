@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Make sure the virtualenv package is installed
-apt install python3.10-venv -y
+apt install python3-venv -y
 
 # Create the virutalenv
 python -m venv venv
