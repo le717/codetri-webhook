@@ -32,9 +32,7 @@ class BaseMixin:
             self.preprocess()
 
     def is_authorized(self) -> bool:
-        raise NotImplementedError(
-            "is_authorized() must be implemented by the child class!"
-        )
+        raise NotImplementedError("is_authorized() must be implemented by the child class!")
 
     def main(self) -> bool:
         raise NotImplementedError("main() must be implemented by the child class!")

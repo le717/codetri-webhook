@@ -6,6 +6,7 @@ from werkzeug.urls import url_decode
 
 from src.core.logger import logger
 
+
 __all__ = ["GitHubAuthMixin"]
 
 
@@ -22,9 +23,7 @@ class GitHubAuthMixin:
     def preprocess(self) -> None:
         # One of the options must be set
         if not self.is_json and not self.is_form:
-            raise TypeError(
-                "Request body type must be set, either JSON or form parameter."
-            )
+            raise TypeError("Request body type must be set, either JSON or form parameter.")
 
         # Parse the request body as desired
         if self.body and self.is_json:

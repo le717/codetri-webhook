@@ -18,7 +18,5 @@ def file_handler(log_name: str) -> RotatingFileHandler:
         delay=True,
     )
     handler.setLevel(logging.ERROR)
-    handler.setFormatter(
-        logging.Formatter("[%(asctime)s - %(levelname)s]: %(message)s")
-    )
+    handler.setFormatter(logging.Formatter("[%(asctime)s - %(levelname)s]: %(message)s"))
     return handler

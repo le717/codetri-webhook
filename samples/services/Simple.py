@@ -25,8 +25,4 @@ class Simple(BaseMixin):
             return False
 
         # Run any required commands after the `git pull`
-        if not self.run_commands(self.commands["after_pull"]):
-            return False
-
-        # Everything worked! Woo! :D
-        return True
+        return self.run_commands(self.commands["after_pull"])

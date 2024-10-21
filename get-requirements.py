@@ -45,10 +45,7 @@ poetry_lock = loads((Path() / "poetry.lock").read_text())
 
 # Resolve the dev packages, if there are any used in this project
 dev_packages = (
-    pyproject_toml["tool"]["poetry"]["group"]
-    .get("dev", {})
-    .get("dependencies", {})
-    .keys()
+    pyproject_toml["tool"]["poetry"]["group"].get("dev", {}).get("dependencies", {}).keys()
 )
 
 # This might seem backwards, but iIf we want to install the dev packages,
@@ -58,7 +55,7 @@ if get_dev_packages:
 
 # Work out all of the requirements, and generate a simple requirements.txt file
 all_packages = filter_packages(poetry_lock["package"], dev_packages)
-with open("requirements.txt", "wt") as f:
+with Path("requirements.txt").open("wt") as f:
     # Write all the requested packages
     for package in all_packages:
         f.write(f"{get_package(package)}\n")
