@@ -4,6 +4,7 @@ version = "0.5.0"
 description = "A small webhook responder"
 authors = ["Caleb <le717@users.noreply.github.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -15,9 +16,33 @@ sys-vars = "^5.1.0"
 [tool.poetry.group.dev]
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.6.2"
-mypy = "^1.11.2"
+ruff = "*"
+mypy = "*"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+indent-width = 4
+line-length = 100
+
+[tool.ruff.format]
+preview = true
+line-ending = "native"
+indent-style = "space"
+quote-style = "double"
+
+[tool.ruff.lint]
+extend-select = [
+  "ERA", # eradicate
+  "I",   # isort,
+  "TD",  # flake8-todos
+  "PTH", # flake8-use-pathlib
+  "UP",  # pyupgrade
+  "SIM", # flake8-simplify
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+extra-standard-library = ["tomllib", "zoneinfo"]
