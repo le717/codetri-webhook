@@ -22,7 +22,7 @@ class BaseMixin:
         self.service: str = kwargs["service"]
         self.secret: str = kwargs["secret"]
         self.commands: dict[str, list[list[str]] | list] = kwargs["commands"]
-        self.addi_info: dict[str, Any] = kwargs["addi_info"]
+        self.addi_info: dict[str, Any] = kwargs.get("addi_info", {})
         self.headers: EnvironHeaders = kwargs["headers"]
         self.body: Any = kwargs["body"]
         self.raw_body: bytes = kwargs["body"]
