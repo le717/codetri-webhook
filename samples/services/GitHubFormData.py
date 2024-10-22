@@ -3,11 +3,11 @@ from pprint import pprint
 from src.core.services import BaseMixin, GitHubAuthMixin
 
 
-__all__ = ["GHPushJSON"]
+__all__ = ["GitHubFormData"]
 
 
-class GHPushJSON(GitHubAuthMixin, BaseMixin):
-    is_json: bool = True
+class GitHubFormData(GitHubAuthMixin, BaseMixin):
+    is_form: bool = True
 
     def main(self) -> bool:
         # Nicely print the request body
