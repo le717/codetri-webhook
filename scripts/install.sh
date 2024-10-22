@@ -3,7 +3,7 @@
 apt install python3-venv -y
 
 # Create the virutalenv
-python -m venv venv
+python3 -m venv venv
 
 # Install the app deps
 venv/bin/python -m pip install pip --upgrade
