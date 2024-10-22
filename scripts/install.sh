@@ -7,7 +7,6 @@ python3 -m venv venv
 
 # Install the app deps
 venv/bin/python -m pip install pip --upgrade
-venv/bin/pip install toml --upgrade
 venv/bin/python ./get-requirements.py
 venv/bin/pip install -r ./requirements.txt
 

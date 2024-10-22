@@ -60,6 +60,6 @@ For working examples, sample Services and Hooks are available in the `samples/` 
 
 ## License
 
-2019, 2021-2023 Caleb
+2019, 2021-2024 Caleb
 
 [MIT](LICENSE)

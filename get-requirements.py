@@ -1,13 +1,7 @@
 from pathlib import Path
 from sys import argv
+from tomllib import loads
 from typing import Iterable
-
-
-# Use the built-in tomllib when available
-try:
-    from tomllib import loads  # type: ignore
-except ImportError:
-    from toml import loads  # type: ignore
 
 
 def get_package(package_info: dict) -> str:
