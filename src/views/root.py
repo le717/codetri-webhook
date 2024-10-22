@@ -16,11 +16,18 @@ def main() -> tuple[dict, int]:
     hook = current_app.config["SUPPORTED_HOOKS"][this_endpoint]
 
     # Next, we import the defined service and give it the info it needs
-    service = getattr(import_module(f"services.{hook['service']}"), hook["service"])(
-        **hook,
-        headers=request.headers,
-        body=request.get_data(),
-    )
+    try:
+        service = getattr(import_module(f"services.{hook['service']}"), hook["service"])(
+            **hook,
+            headers=request.headers,
+            body=request.get_data(),
+        )
+
+    # * ModuleNotFoundError: A service module with the specified name does not exist
+    # * AttributeError: A service module with the specified name *does* exist,
+    #                   but the class name doesn't match the module name
+    except (ModuleNotFoundError, AttributeError):
+        return {"status": "Error running webhook service."}, 400
 
     # The service didn't receive proper auth
     if not service.is_authorized():

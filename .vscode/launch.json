@@ -6,7 +6,7 @@
   "configurations": [
     {
       "name": "Dev",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "flask",
       "console": "internalConsole",
@@ -22,7 +22,7 @@
         "--no-debugger"
       ],
       "jinja": true,
-      "justMyCode": true,
+      "justMyCode": true
     }
   ]
 }

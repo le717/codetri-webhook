@@ -17,7 +17,7 @@ __all__ = ["BaseMixin"]
 class BaseMixin:
     """Base service mixin. Always inherit from this class!"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         self.name: str = kwargs["name"]
         self.service: str = kwargs["service"]
         self.secret: str = kwargs["secret"]
@@ -32,12 +32,14 @@ class BaseMixin:
             self.preprocess()
 
     def is_authorized(self) -> bool:
+        """Determine if the request is authorized to be processed."""
         raise NotImplementedError("is_authorized() must be implemented by the child class!")
 
     def main(self) -> bool:
         raise NotImplementedError("main() must be implemented by the child class!")
 
     def run_command(self, command: list[str]) -> bool:
+        """Execute a single command, indicating if it ran successfully."""
         return run(command).returncode == 0
 
     def run_commands(self, commands: list[list[str]]) -> bool:
