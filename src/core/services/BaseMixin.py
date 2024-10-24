@@ -3,7 +3,6 @@ The base service that all other services inherit from.
 Do not directly use this as a service!
 """
 
-from logging import getLogger
 from os import fspath
 from pathlib import Path
 from subprocess import run
@@ -11,10 +10,10 @@ from typing import Any
 
 from werkzeug.datastructures import EnvironHeaders
 
+from src.core.logger import logger
+
 
 __all__ = ["BaseMixin"]
-
-logger = getLogger(__name__)
 
 
 class BaseMixin:
