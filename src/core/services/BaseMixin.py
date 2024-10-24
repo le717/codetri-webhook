@@ -5,7 +5,7 @@ Do not directly use this as a service!
 
 from os import fspath
 from pathlib import Path
-from subprocess import run
+from subprocess import CalledProcessError, run
 from typing import Any
 
 from werkzeug.datastructures import EnvironHeaders
@@ -43,7 +43,11 @@ class BaseMixin:
     def run_command(self, command: list[str]) -> bool:
         """Execute a single command, indicating if it ran successfully."""
         logger.info(f"Running command {command}")
-        return run(command).returncode == 0
+        try:
+            run(command, check=True)
+        except CalledProcessError as exc:
+            logger.error(exc)
+            return False
 
     def run_commands(self, commands: list[list[str]]) -> bool:
         success = True
