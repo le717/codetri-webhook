@@ -42,7 +42,7 @@ class BaseMixin:
 
     def run_command(self, command: list[str]) -> bool:
         """Execute a single command, indicating if it ran successfully."""
-        logger.error(f"Running command `{''.join(command)}`")
+        logger.info(f"Running command {command}")
         return run(command).returncode == 0
 
     def run_commands(self, commands: list[list[str]]) -> bool:
