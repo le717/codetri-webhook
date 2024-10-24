@@ -44,7 +44,7 @@ class BaseMixin:
     def run_command(self, command: list[str], *, shell: bool = True) -> bool:
         """Execute a single command, indicating if it ran successfully."""
         logger.info(f"Running command {command}")
-        wrapped_run = partial(run, check=True)
+        wrapped_run = partial(run, check=True, capture_output=True)
 
         # For some commands, we don't need to run them as shell
         try:
