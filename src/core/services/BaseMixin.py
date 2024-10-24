@@ -45,6 +45,7 @@ class BaseMixin:
         logger.info(f"Running command {command}")
         try:
             run(command, check=True, shell=True)
+            return True
         except CalledProcessError as exc:
             logger.error(exc)
             return False
