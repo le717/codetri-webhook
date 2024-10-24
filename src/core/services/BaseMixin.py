@@ -48,7 +48,9 @@ class BaseMixin:
 
         # For some commands, we don't need to run them as shell
         try:
-            wrapped_run(command, shell=shell)
+            if shell:
+                command = " ".join(command)
+            wrapped_run(args=command, shell=shell)
             return True
         except CalledProcessError as exc:
             logger.error(exc)
