@@ -3,6 +3,7 @@ The base service that all other services inherit from.
 Do not directly use this as a service!
 """
 
+from functools import partial
 from os import fspath
 from pathlib import Path
 from subprocess import CalledProcessError, run
@@ -40,11 +41,18 @@ class BaseMixin:
     def main(self) -> bool:
         raise NotImplementedError("main() must be implemented by the child class!")
 
-    def run_command(self, command: list[str]) -> bool:
+    def run_command(self, command: list[str], *, check: bool = True) -> bool:
         """Execute a single command, indicating if it ran successfully."""
         logger.info(f"Running command {command}")
+        wrapped_run = partial(run, shell=True)
+
+        # If we don't want Python to check the result of the call, do it ourselves
+        if not check:
+            return wrapped_run(command).returncode == 0
+
+        # We *do* want Python's check (the default)
         try:
-            run(command, check=True, shell=True)
+            wrapped_run(command, check=True)
             return True
         except CalledProcessError as exc:
             logger.error(exc)
@@ -60,4 +68,4 @@ class BaseMixin:
 
     def git_pull(self, branch: str, dest_dir: Path) -> bool:
         pull_command = ["git", "-C", fspath(dest_dir), "pull", "origin", branch]
-        return self.run_command(pull_command)
+        return self.run_command(pull_command, check=False)
