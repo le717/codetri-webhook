@@ -44,7 +44,7 @@ class BaseMixin:
         """Execute a single command, indicating if it ran successfully."""
         logger.info(f"Running command {command}")
         try:
-            run(command, check=True)
+            run(command, check=True, shell=True)
         except CalledProcessError as exc:
             logger.error(exc)
             return False
