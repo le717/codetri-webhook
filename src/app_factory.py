@@ -1,3 +1,4 @@
+import logging
 from os import getenv
 
 from flask import Flask
@@ -15,8 +16,9 @@ def create_app():
     app.config.update(config.app("default"))
     app.config.update(config.app(getenv("FLASK_ENV")))
 
-    # Create an app error log
-    logger.logger.addHandler(logger.file_handler("error.log"))
+    # Create app-level logs
+    logger.logger.addHandler(logger.file_handler("error.log", logging.ERROR))
+    logger.logger.addHandler(logger.file_handler("info.log", logging.INFO))
 
     # Load the hooks
     app.config["SUPPORTED_HOOKS"] = {}

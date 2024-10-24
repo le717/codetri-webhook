@@ -9,7 +9,7 @@ __all__ = ["logger", "file_handler"]
 logger = logging.getLogger(__name__)
 
 
-def file_handler(log_name: str) -> RotatingFileHandler:
+def file_handler(log_name: str, level: int) -> RotatingFileHandler:
     """Create a file-based error handler."""
     handler = RotatingFileHandler(
         (Path("log") / "app" / log_name).as_posix(),
@@ -17,6 +17,6 @@ def file_handler(log_name: str) -> RotatingFileHandler:
         backupCount=5,
         delay=True,
     )
-    handler.setLevel(logging.ERROR)
+    handler.setLevel(level)
     handler.setFormatter(logging.Formatter("[%(asctime)s - %(levelname)s]: %(message)s"))
     return handler
