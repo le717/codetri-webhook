@@ -56,7 +56,10 @@ class BaseMixin:
             logger.error(exc)
             return False
 
-    def run_commands(self, commands: list[list[str]]) -> bool:
+    def run_commands(self, commands: list[list[str]] | None) -> bool:
+        if commands is None:
+            return True
+
         success = True
         for command in commands:
             if not self.run_command(command):
