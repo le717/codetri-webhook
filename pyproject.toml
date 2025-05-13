@@ -8,7 +8,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-flask = "^3.0.3"
+flask = "^3.1.1"
 gunicorn = "^23.0.0"
 supervisor = "^4.2.5"
 sys-vars = "^5.1.0"
